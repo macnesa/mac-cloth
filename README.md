@@ -1,8 +1,8 @@
 [![Open in Visual Studio Code](https://classroom.github.com/assets/open-in-vscode-c66648af7eb3fe8bc4f294546bfd86ef473780cde1dea487d3c4ff354943c9ae.svg)](https://classroom.github.com/online_ide?assignment_repo_id=10109408&assignment_repo_type=AssignmentRepo)
 # P3-Challenge-1
 
-- Tema Aplikasi: ...
-- CSS Framework: ...
+- Tema Aplikasi: ...Brand Showcase
+- CSS Framework: ...tailwind css
 
 Struktur Folder:
 
@@ -14,12 +14,12 @@ Struktur Folder:
 
 Target:
 
-- [ ] Lecture - React Intro
-- [ ] React: Class Component vs Function Component
-- [ ] Mempelajari State menggunakan useState
-- [ ] Mengirim Props baik berupa sebuah state atau function
-- [ ] Event Handling (onClick, onChange, onSubmit)
-- [ ] Conditional Rendering di dalam React
+- [x] Lecture - React Intro
+- [x] React: Class Component vs Function Component
+- [x] Mempelajari State menggunakan useState
+- [x] Mengirim Props baik berupa sebuah state atau function
+- [x] Event Handling (onClick, onChange, onSubmit)
+- [x] Conditional Rendering di dalam React
 - [ ] Looping List of Data di dalam React
 - [ ] Lifecycle component menggunakan useEffect
 - [ ] Membuat server (json-server)
@@ -32,8 +32,7 @@ Target:
 
 ...
 
-> contoh: Hari ini saya belajar React Component. Saya memahami bagaimana cara React bekerja. Lifecycle yang sudah saya coba adalah componentDidMount yang digunakan untuk fetch data dst. Namun saya belum mencoba menggunakan onSubmit dikarenakan data yang didapat belum sesuai.
-> Pada tugas ini, saya memilih Tema A dengan mengambil referensi dari B. Saya juga akan menggunakan CSS Framework yaitu Tailwind CSS
+> Referensi client user ui = https://id.hm.com/id_id/, https://www.gucci.com/. kemarin ada beberapa masalah di deploy i project pase 2 saya. jadi saya coba selesaikan dulu, sayang kalau di biarin offline. jadi saya coba mulai chalenge nya hari ini. tapi alhamdulilah materi saya sebgaian besar sudah dipahami. tinggal di praktekin dan trial error 
 
 ## W1D2
 

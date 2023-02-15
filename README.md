@@ -20,13 +20,13 @@ Target:
 - [x] Mengirim Props baik berupa sebuah state atau function
 - [x] Event Handling (onClick, onChange, onSubmit)
 - [x] Conditional Rendering di dalam React
-- [ ] Looping List of Data di dalam React
-- [ ] Lifecycle component menggunakan useEffect
-- [ ] Membuat server (json-server)
-- [ ] Membuat react app untuk client-user (Styling)
+- [x] Looping List of Data di dalam React
+- [x] Lifecycle component menggunakan useEffect
+- [x] Membuat server (json-server)
+- [x] Membuat react app untuk client-user (Styling)
 - [ ] Membuat react app untuk client-admin (CRUD)
-- [ ] Menentukan Thema Aplikasi
-- [ ] Menentukan Design dan pemilihan CSS Framework
+- [x] Menentukan Thema Aplikasi
+- [x] Menentukan Design dan pemilihan CSS Framework
 
 **Report:**
 
@@ -38,9 +38,9 @@ Target:
 
 Target:
 
-- [ ] Lecture - Custom Hooks
-- [ ] Rules of Hooks
-- [ ] Lecture - React-Router
+- [x] Lecture - Custom Hooks
+- [x] Rules of Hooks
+- [x] Lecture - React-Router
 - [ ] Membuat router user-side (min: home, detail)
 - [ ] Membuat router admin-side (min: login, add admin, CRUD main entitas, CRUD another entitas)
 - [ ] Membuat privateRoute untuk admin

@@ -10,7 +10,7 @@ export default function App() {
     {
       name: 'chaimGreen',
       password: 'i am chassidish',
-      username: 'twinkGayAssHot'
+      username: 'twin'
     }
   )
 

@@ -8,12 +8,22 @@ import { EffectFade } from 'swiper';
 import 'swiper/css';
 import 'swiper/css/effect-fade'
 
-
+import { useSelector, useDispatch } from "react-redux"
+import { conterIncremented, dididam } from '../store/actions/actionCreator';
 
 export default function Home() {
 
+  const store = useSelector((state) => state)
+  const dispatch = useDispatch()
+  // dispatch(conterIncremented("payload"))
+  console.log(store);
+
   const [products, setProducts] = useState([]);
   const [categories, setCategories] = useState([]);
+
+  // useEffect(() => {
+  //   dispatch(dididam())
+  // }, []);
 
   useEffect(() => {
     // fetch('http://localhost:3000/products?_limit=8')
@@ -79,7 +89,11 @@ export default function Home() {
         </div>
 
         <div className="text-white">
-          <p className="text-[20px] font-bold  ">Most Popular</p>
+          <p className="text-[20px] font-bold  ">Most Popular {store.counter.value} </p>
+          <button onClick={() => {
+            dispatch(conterIncremented("payload"))
+          }}>Increment
+          </button>
         </div>
 
         <div style={{ gridTemplateColumns: "repeat(8, 1fr)" }} className="w-[100%] box-border  mt-[20px] | grid grid-flow-row  ">

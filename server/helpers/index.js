@@ -20,6 +20,6 @@ function compareHash(plain, hashed) {
 module.exports = {
   hashing,
   compareHash,
-  generateToken,
-  validateToken
+  // generateToken,
+  // validateToken
 }

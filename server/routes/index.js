@@ -1,7 +1,7 @@
 const router = require('express').Router()
 
 const adminEnpoints = require('./admin-routes')
-// const CustomersEndpoints = require('./customer')
+const customerEndpoints = require('./customer-routes')
 
 const {
   errorHandler
@@ -9,7 +9,7 @@ const {
 
 router.use('/admin', adminEnpoints)
 
-// router.use('/', staffAndAdminEndpoints)
+router.use('/customer', customerEndpoints)
 
 
 

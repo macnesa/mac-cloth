@@ -31,15 +31,6 @@ module.exports = (sequelize, DataTypes) => {
     },
     slug: {
       type: DataTypes.STRING,
-      allowNull: false,
-      validate: {
-        notNull: {
-          msg: 'Slug is required'
-        },
-        notEmpty: {
-          msg: 'Slug is required'
-        }
-      }
     },
     description: {
       type: DataTypes.STRING(500),
@@ -63,9 +54,9 @@ module.exports = (sequelize, DataTypes) => {
         notEmpty: {
           msg: 'Price is required'
         },
-        len: {
-          args: [15_000],
-          msg: 'Minimun price is 15.000'
+        min: {
+          args: 15_000,
+          msg: 'Minimum price is 15.000'
         },
       }
     },
@@ -108,6 +99,11 @@ module.exports = (sequelize, DataTypes) => {
   }, {
     sequelize,
     modelName: 'Product',
+    hooks: {
+      beforeCreate(Product) {
+        Product.slug = Product.name.replace(/\s+/g, '-')
+      },
+    }
   });
   return Product;
 };

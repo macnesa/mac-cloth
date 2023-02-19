@@ -1,9 +1,10 @@
 import { createBrowserRouter } from "react-router-dom"
 
 import Container from "../pages/Container"
-import Detail from "../pages/Detail"
+import Category from "../pages/Category"
 import Home from "../pages/Home"
 import LoginPage from "../pages/Login"
+import AddAdminPage from "../pages/Add-new-admin"
 
 
 const router = createBrowserRouter(
@@ -21,8 +22,12 @@ const router = createBrowserRouter(
           element: <LoginPage/>,
         },
         {
-          path: "detail/:id",
-          element: <Detail />
+          path: "category",
+          element: <Category />
+        },
+        {
+          path: "new-admin",
+          element: <AddAdminPage />
         }
       ]
     },

@@ -95,6 +95,36 @@ export function act_addProduct(data) {
 }
 
 
+export function act_addCategory(data) {
+  return async (dispatch) => {
+    try {
+      const request = await
+        fetch(baseUrl + `/admin/categories`,
+          {
+            method: "POST",
+            headers: {
+              'Content-Type': 'application/json',
+              // access_token: localStorage.getItem("myToken")
+              access_token: "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwiaWF0IjoxNjc2NzAwOTY4fQ.2QIA-QzLozcnavVkPd933C1Mu1ayKtNKfMp9nGFE7ZA"
+
+            },
+            body: JSON.stringify(data)
+          }
+        )
+      let respon = await request.json()
+
+      if (!request.ok) throw respon 
+      dispatch(getCategories())
+
+      return true
+    } catch (error) {
+      throw error
+      // console.log(error);
+    }
+  }
+}
+
+
 export function getProducts() {
   return async (dispatch) => {
     try {
@@ -171,6 +201,34 @@ export function deleteProduct(id) {
 
       // console.log(respon);
       dispatch(getProducts())
+
+      return true
+    } catch (error) {
+      throw error
+      // console.log(error);
+    }
+  }
+}
+
+
+export function deleteCategory(id) {
+  return async (dispatch) => {
+    try {
+      const request = await
+        fetch(baseUrl + `/admin/categories/` + id,
+          {
+            method: "DELETE",
+            headers: {
+              // access_token: localStorage.getItem("myToken")
+              access_token: "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwiaWF0IjoxNjc2NzAwOTY4fQ.2QIA-QzLozcnavVkPd933C1Mu1ayKtNKfMp9nGFE7ZA"
+            },
+          }
+        )
+      let respon = await request.json()
+
+      if (!request.ok) throw respon
+ 
+      dispatch(getCategories())
 
       return true
     } catch (error) {

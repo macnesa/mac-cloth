@@ -1,12 +1,388 @@
+import { useEffect, useState } from 'react';
 
-import { Table } from 'flowbite-react';
+import {
+  Table, React, Button, Modal, Label, TextInput, Checkbox, Select, 
+} from 'flowbite-react';
+
+
+import { useDispatch, useSelector } from "react-redux"
+import { getProducts, deleteProduct, getCategories, act_addProduct } from '../store/actions/actionCreator';
+
 
 export default function Home() {
+  const { product, category } = useSelector((state) => state)
+  const dispatch = useDispatch()
+  // dispatch(conterIncremented("payload"))
+  // console.log(product);
+
+  useEffect(() => {
+    dispatch(getProducts())
+    dispatch(getCategories())
+    // error handler nya
+  }, []);
+
+  const [popUpToggle, setPopUpToggle] = useState(
+    {
+      is_delete_PopUp: false,
+      is_add_PopUp: false,
+      productId: 0
+    }
+  )
+  
+  const [addFormData, setAddFormData] = useState(
+    {
+      product: {
+        name: "",
+        description: "",
+        price: 0,
+        mainImg: "",
+        CategoryId: 0 
+      },
+      images: [
+        
+      ]
+    }
+  )
+  
+  
+  function updateAddForm(event) {
+    const { name, value, accessKey } = event.target;
+    if(name == "imgUrl") {
+      // const updatedImages = addFormData.images.map((image, i) => {
+      //   if (i == accessKey) {
+      //     return { 
+      //       [name]: value
+      //     };
+      //   } else {
+      //     return image;
+      //   }}) 
+      //   setAddFormData({
+      //     ...addFormData,
+      //     images: updatedImages
+      //   });
+        
+      setAddFormData(
+        { 
+          ...addFormData,
+          images: [
+            ...addFormData.images,
+            {
+              [name]: value
+            }
+          ]
+        }
+        );
+        console.log(addFormData);
+      } else { 
+        setAddFormData(
+          { 
+            ...addFormData,
+            product: {
+              ...addFormData.product,
+              [name]: value
+            } 
+          }
+          );
+        }
+      }
+      
+      console.log(addFormData);
+
+  function onClick(event) {
+    return event.preventDefault()
+  }
+  function onClose(event) {
+    return event.preventDefault()
+
+  }
+  
+  
+  function showPopUpDelete(id) {
+    setPopUpToggle(
+      {
+        ...popUpToggle,
+        is_delete_PopUp: true,
+        productId: id
+      }
+    )
+  }
+  function hidePopUpDelete() {
+    setPopUpToggle(
+      {
+        ...popUpToggle,
+        is_delete_PopUp: false
+      }
+    )
+  }
+  
+  function togglePopUpAdd() {
+    setPopUpToggle(
+      {
+        ...popUpToggle,
+        is_add_PopUp: !popUpToggle.is_add_PopUp, 
+      }
+    )
+  }
+   
+  
+  function triggerDelete() {
+    dispatch(deleteProduct(popUpToggle.productId))
+      .then((data) => {
+        if (data == true) {
+          hidePopUpDelete()
+        }
+      })
+      .catch((error) => {
+        console.log(error, 'libi')
+      })
+  }
+  function triggerAdd(event) {
+    event.preventDefault()
+    // console.log(addFormData);
+    dispatch(act_addProduct(addFormData))
+      .then((data) => {
+        if (data == true) {
+          togglePopUpAdd()
+        }
+      })
+      .catch((error) => {
+        console.log(error, 'libi')
+      })
+  }
 
   return (
     <>
-    <div>Homepage</div>
-{/* 
+      <div>Homepage</div>
+     
+
+
+
+
+
+     
+
+      <div className='p-0'>
+        <Button onClick={() =>  togglePopUpAdd()} size="md"> Add </Button>
+        <Table hoverable={true} className="w-[100px]">
+          <Table.Head>
+            <Table.HeadCell>
+              Name
+            </Table.HeadCell>
+            <Table.HeadCell>
+              Color
+            </Table.HeadCell>
+            <Table.HeadCell>
+              Category
+            </Table.HeadCell>
+            <Table.HeadCell>
+              Price
+            </Table.HeadCell>
+            <Table.HeadCell>
+              <span className="sr-only">
+                Edit
+              </span>
+            </Table.HeadCell>
+          </Table.Head>
+          {product.map(each => {
+            return (
+              <Table.Body key={each.id} className="divide-y">
+                <Table.Row className="bg-white dark:border-gray-700 dark:bg-gray-800">
+                  <Table.Cell className="whitespace-nowrap font-medium text-gray-900 dark:text-white">
+                    <img src={each.mainImg} className="h-10" />
+                    {each.name}
+                  </Table.Cell>
+                  <Table.Cell>
+                    {each.User.email}
+                  </Table.Cell>
+                  <Table.Cell>
+                    {each.Category.name}
+                  </Table.Cell>
+                  <Table.Cell>
+                    $2999
+                  </Table.Cell>
+                  <Table.Cell className='flex gap-4'>
+                    <Button size="md">
+                      Edit
+                    </Button>
+                    <Button onClick={() => { showPopUpDelete(each.id) }} size="md" className='bg-red-600'>
+                      Delete
+                    </Button>
+                  </Table.Cell>
+                </Table.Row>
+              </Table.Body>
+            )
+          })}
+        </Table>
+        <div>
+          <Modal
+            show={popUpToggle.is_delete_PopUp}
+            size="md"
+            popup={true}
+          // onClose={onClose}
+          >
+            <Modal.Header />
+            <Modal.Body>
+              <div className="text-center">
+                {/* <HiOutlineExclamationCircle className="mx-auto mb-4 h-14 w-14 text-gray-400 dark:text-gray-200" /> */}
+                <svg aria-hidden="true" className="mx-auto mb-4 text-gray-400 w-14 h-14 dark:text-gray-200" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M12 8v4m0 4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
+                <h3 className="mb-5 text-lg font-normal text-gray-500 dark:text-gray-400">
+                  Are you sure you want to delete this product?
+                </h3>
+                <div className="flex justify-center gap-4">
+                  <Button
+                    color="failure"
+                    onClick={triggerDelete}
+                  >
+                    Yes, I'm sure
+                  </Button>
+                  <Button onClick={hidePopUpDelete}
+                    color="gray"
+                  // onClick={onClick}
+                  >
+                    No, cancel
+                  </Button>
+                </div>
+              </div>
+            </Modal.Body>
+          </Modal>
+        </div>
+
+        {/* add form */}
+        <Modal
+          show={popUpToggle.is_add_PopUp}
+          size="md"
+          popup={true}
+          onClose={onClose}
+        >
+          <Modal.Header />
+          <Modal.Body>
+            <form onSubmit={triggerAdd} className="space-y-6 px-6 pb-4 sm:pb-6 lg:px-8 xl:pb-8">
+              <h3 className="text-xl font-medium text-gray-900 dark:text-white">
+                Add New Product
+              </h3>
+              <div>
+                <div className="mb-2 block">
+                  <Label
+                    htmlFor="name"
+                    value="Name"
+                  />
+                </div>
+                <TextInput
+                  id="name"
+                  name="name"
+                  placeholder="e.g Blue Cotton"
+                  required={true}
+                  onChange={updateAddForm}
+                />
+              </div>
+              <div>
+                <div className="mb-2 block">
+                  <Label
+                    htmlFor="description"
+                    value="Description"
+                  />
+                </div>
+                <TextInput
+                  id="description"
+                  name="description"
+                  type="text"
+                  required={true}
+                  onChange={updateAddForm}
+                />
+              </div>
+              <div>
+                <div className="mb-2 block">
+                  <Label
+                    htmlFor="price"
+                    value="Price"
+                  />
+                </div>
+                <TextInput
+                  id="price"
+                  name="price"
+                  type="number"
+                  required={true}
+                  onChange={updateAddForm}
+                />
+              </div>
+              <div>
+                <div className="mb-2 block">
+                  <Label
+                    htmlFor="category"
+                    value="Category"
+                  />
+                </div>
+                <Select
+                  id="category"
+                  name="CategoryId"
+                  required={true}
+                  // value={addFormData.product.CategoryId}
+                  onChange={updateAddForm}
+                  // onChange={(e) => {
+                  //   console.log(e.target.value, e.target.name,"lentyol");
+                  // }}
+                >
+                  <option disabled selected>Select</option>
+                  {category.map(each => {
+                    return (
+                      <option key={each.id} value = {each.id}>
+                        {each.name}
+                      </option>
+                    )
+                  })}
+                </Select>
+              </div>
+              <div>
+                <div className="mb-2 block">
+                  <Label
+                    htmlFor="mainImg"
+                    value="Main Image"
+                  />
+                </div>
+                <TextInput
+                  id="mainImg"
+                  name="mainImg"
+                  type="url"
+                  placeholder="Url Format"
+                  required={true}
+                  onChange={updateAddForm}
+                />
+              </div>
+              <div>
+                <div className="mb-2 block">
+                  <Label
+                    htmlFor="imgUrl"
+                    value="Related Image"
+                  />
+                </div>
+                <TextInput
+                  id="imgUrl"
+                  name="imgUrl"
+                  type="url"
+                  accessKey="0"
+                  placeholder="Url Format" 
+                  onChange={updateAddForm}
+                />
+              </div>
+              <div className="w-full">
+                <Button type="submit" >
+                  Submit
+                </Button>
+              </div> 
+            </form>
+          </Modal.Body>
+        </Modal>
+      </div>
+      
+    </>
+
+  );
+}
+
+
+
+
+ {/* 
       <div class="relative overflow-x-auto mt-10 ">
     <table class="w-full text-sm text-left text-black">
         <thead class="text-xs text-gray-700 uppercase bg-gray-50">
@@ -54,59 +430,3 @@ export default function Home() {
         </tbody>
     </table>
 </div> */}
-
-<div className='p-10'>
-<Table hoverable={true}>
-  <Table.Head>
-    <Table.HeadCell>
-      Name
-    </Table.HeadCell>
-    <Table.HeadCell>
-      Color
-    </Table.HeadCell>
-    <Table.HeadCell>
-      Category
-    </Table.HeadCell>
-    <Table.HeadCell>
-      Price
-    </Table.HeadCell>
-    <Table.HeadCell>
-      <span className="sr-only">
-        Edit
-      </span>
-    </Table.HeadCell>
-  </Table.Head>
-  <Table.Body className="divide-y">
-    <Table.Row className="bg-white dark:border-gray-700 dark:bg-gray-800">
-      <Table.Cell className="whitespace-nowrap font-medium text-gray-900 dark:text-white">
-        Apple MacBook Pro 17"
-      </Table.Cell>
-      <Table.Cell>
-        Sliver
-      </Table.Cell>
-      <Table.Cell>
-        Laptop
-      </Table.Cell>
-      <Table.Cell>
-        $2999
-      </Table.Cell>
-      <Table.Cell>
-        <a
-          href="/tables"
-          className="font-medium text-blue-600 hover:underline dark:text-blue-500"
-        >
-          Edit
-        </a>
-      </Table.Cell>
-    </Table.Row>
-  </Table.Body>
-</Table>
-</div>
-    </>
-
-  );
-}
-
-
-
-

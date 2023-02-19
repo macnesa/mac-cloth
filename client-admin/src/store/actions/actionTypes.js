@@ -1,1 +1,7 @@
 export const COUNTER_INCREMENTER = "a/b"
+
+export const READ_PRODUCTS = "READ_PRODUCTS"
+
+export const WRITE_PRODUCTS = "WRITE_PRODUCTS"
+
+export const WRITE_GENRES = "WRITE_GENRES"

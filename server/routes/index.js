@@ -7,6 +7,10 @@ const {
   errorHandler
 } = require('../middlewares')
 
+router.get('/', (req, res, next) => {
+  res.json({message: 'welcome to root'})
+})
+
 router.use('/admin', adminEnpoints)
 
 router.use('/customer', customerEndpoints)

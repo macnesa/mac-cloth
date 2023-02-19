@@ -20,7 +20,7 @@ const {
 router.post('/login', reqBodyCheck, ControllerUser.login)
 // router.post('/google-sign-in', ControllerUser.googleSignIn)
 
-router.use(authentication)
+// router.use(authentication)
 
 router.post('/register', ControllerUser.register)
 

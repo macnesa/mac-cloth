@@ -66,7 +66,7 @@ function reqBodyCheck(req, res, next) {
 function errorHandler(error, req, res, next) {
   let { code, name, errors } = error
   let number = code || 500
-  let message = 'Internal server error'
+  let message = {error: 'Internal server error'}
 
   switch (name) {
     case 'SequelizeValidationError':

@@ -40,7 +40,7 @@ router.use('/categories',
     // .get('/:id', ControllerGenre.genreById)
     .delete('/:id', ControllerCategories.deleteCategoryById)
 )
-
+ 
 router.use('/products',
   require('express').Router()
     .get('/', ControllerProduct.allProduct)

@@ -1,4 +1,4 @@
-const { User, Category, Product, History, sequelize } = require('../models')
+const { User, Category, Product, Image, sequelize } = require('../models')
 // const ControllerLog = require('./log')
 const { Op } = require('sequelize')
 
@@ -81,6 +81,10 @@ class Controller {
   //     next(error)
   //   }
   // } 
+
+
+
+
   static async addProduct(req, res, next) {
     const { name, description, price, mainImg, CategoryId } = req.body.product
 
@@ -96,16 +100,16 @@ class Controller {
           transaction: t
         }
       )
-      
-      if (req.body?.images.length) { 
+
+      if (req.body?.images.length) {
         const imagesReady = req.body.images.map(each => {
-          each.ProductId = addProduct.id;  
+          each.ProductId = addProduct.id;
           each.createdAt = each.updatedAt = new Date();
           return each
         })
         // res.send(req.body)
         // console.log(imagesReady);
-        await sequelize.queryInterface.bulkInsert('Images', imagesReady, 
+        await sequelize.queryInterface.bulkInsert('Images', imagesReady,
           {
             transaction: t
           }
@@ -135,6 +139,9 @@ class Controller {
             {
               model: Category,
               attributes: ['name'],
+            },
+            {
+              model: Image,
             }
           ]
         }
@@ -147,13 +154,8 @@ class Controller {
     }
   }
 
-  static async putProductById(req, res, next) {
-    //   const upd = await Movie.update({ title, synopsis, trailerUrl, imgUrl, rating, GenreId }, {
-    //     where: {
-    //       id
-    //     }
-    //   })
-    const { id, name, description, price, mainImg, CategoryId } = req.body.product 
+  static async putProductById(req, res, next) { 
+    const { id, name, description, price, mainImg, CategoryId } = req.body
 
     const t = await sequelize.transaction()
     const AuthorId = req.userId
@@ -168,27 +170,19 @@ class Controller {
           transaction: t
         }
       )
-      
-      if (req.body?.images.length) { 
-        const imagesReady = req.body.images.map(each => {
-          each.ProductId = addProduct.id;  
-          each.createdAt = each.updatedAt = new Date();
-          return each
-        })
-        // res.send(req.body)
-        // console.log(imagesReady);
-        await sequelize.queryInterface.bulkInsert('Images', imagesReady, 
-          {
-            transaction: t
-          }
-        )
-      }
 
-      // const { id } = addMovies
-      // const desc = `New entity with id ${id} has been added`
-      // await ControllerLog.addHistory(title, desc, AuthorId)
+      if (req.body?.Images.length) {
+        for (const each of req.body.Images) {
+          await Image.update({ imgUrl: each.imgUrl }, {
+            where: {
+              id: each.id
+            },
+            transaction: t
+          });
+        }
+      } 
       await t.commit()
-      res.status(201).json(addProduct)
+      res.status(200).json(addProduct)
     } catch (error) {
       await t.rollback()
       next(error)
@@ -221,9 +215,9 @@ class Controller {
     const { id } = req.params
     try {
       const data = await Product.findByPk(id)
-      if (!data) throw { code: 404 } 
-      await data.destroy() 
-      
+      if (!data) throw { code: 404 }
+      await data.destroy()
+
       res.status(200).json(data)
     } catch (error) {
       next(error)

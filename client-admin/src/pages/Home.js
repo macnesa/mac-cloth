@@ -1,16 +1,16 @@
 import { useEffect, useState } from 'react';
 
 import {
-  Table, React, Button, Modal, Label, TextInput, Checkbox, Select, 
+  Table, React, Button, Modal, Label, TextInput, Checkbox, Select,
 } from 'flowbite-react';
 
 
 import { useDispatch, useSelector } from "react-redux"
-import { getProducts, deleteProduct, getCategories, act_addProduct } from '../store/actions/actionCreator';
+import { getProducts, deleteProduct, getCategories, act_addProduct, getProductById } from '../store/actions/actionCreator';
 
 
 export default function Home() {
-  const { product, category } = useSelector((state) => state)
+  const { product: { allProduct, productById }, category } = useSelector((state) => state)
   const dispatch = useDispatch()
   // dispatch(conterIncremented("payload"))
   // console.log(product);
@@ -21,72 +21,69 @@ export default function Home() {
     // error handler nya
   }, []);
 
+
   const [popUpToggle, setPopUpToggle] = useState(
     {
       is_delete_PopUp: false,
       is_add_PopUp: false,
+      is_edit_PopUp: false,
       productId: 0
     }
   )
-  
+
   const [addFormData, setAddFormData] = useState(
     {
       product: {
         name: "",
         description: "",
-        price: 0,
+        price: null,
         mainImg: "",
-        CategoryId: 0 
+        CategoryId: 0
       },
       images: [
-        
+        {
+          imgUrl: ''
+        },
+        {
+          imgUrl: ''
+        },
+        {
+          imgUrl: ''
+        },
       ]
     }
   )
-  
-  
+
+
   function updateAddForm(event) {
     const { name, value, accessKey } = event.target;
-    if(name == "imgUrl") {
-      // const updatedImages = addFormData.images.map((image, i) => {
-      //   if (i == accessKey) {
-      //     return { 
-      //       [name]: value
-      //     };
-      //   } else {
-      //     return image;
-      //   }}) 
-      //   setAddFormData({
-      //     ...addFormData,
-      //     images: updatedImages
-      //   });
-        
+    if (name == "imgUrl") {
+      let newarr = addFormData.images.map((each,index)=> {
+        if(index == accessKey) {
+          each.imgUrl = value
+        } ; return each
+      }) 
       setAddFormData(
-        { 
+        {
           ...addFormData,
-          images: [
-            ...addFormData.images,
-            {
-              [name]: value
-            }
-          ]
+          images: newarr
         }
-        );
-        console.log(addFormData);
-      } else { 
-        setAddFormData(
-          { 
-            ...addFormData,
-            product: {
-              ...addFormData.product,
-              [name]: value
-            } 
+        ); 
+        // console.log(addFormData, "shomer achi"); 
+    } else {
+      setAddFormData(
+        {
+          ...addFormData,
+          product: {
+            ...addFormData.product,
+            [name]: value
           }
-          );
         }
-      }
-      
-      console.log(addFormData);
+      );
+    }
+  }
+
+  // console.log(addFormData);
 
   function onClick(event) {
     return event.preventDefault()
@@ -95,8 +92,8 @@ export default function Home() {
     return event.preventDefault()
 
   }
-  
-  
+
+
   function showPopUpDelete(id) {
     setPopUpToggle(
       {
@@ -105,7 +102,7 @@ export default function Home() {
         productId: id
       }
     )
-  }
+  } 
   function hidePopUpDelete() {
     setPopUpToggle(
       {
@@ -115,16 +112,25 @@ export default function Home() {
     )
   }
   
+  function hidePopUpEDit() {
+    setPopUpToggle(
+      {
+        ...popUpToggle,
+        is_edit_PopUp: false
+      }
+    )
+  }
+
   function togglePopUpAdd() {
     setPopUpToggle(
       {
         ...popUpToggle,
-        is_add_PopUp: !popUpToggle.is_add_PopUp, 
+        is_add_PopUp: !popUpToggle.is_add_PopUp,
       }
     )
   }
-   
-  
+
+
   function triggerDelete() {
     dispatch(deleteProduct(popUpToggle.productId))
       .then((data) => {
@@ -136,6 +142,7 @@ export default function Home() {
         console.log(error, 'libi')
       })
   }
+
   function triggerAdd(event) {
     event.preventDefault()
     // console.log(addFormData);
@@ -150,19 +157,49 @@ export default function Home() {
       })
   }
 
+  
+  function gottaEdit(id) {
+    dispatch(getProductById(id))
+      .then((data) => {
+        if (data == true) {
+          setPopUpToggle(
+            {
+              ...popUpToggle,
+              is_edit_PopUp: true,
+              productId: id
+            }
+          ) 
+          // const testing = productById.name
+          // setAddFormData(
+          //   {
+          //     ...addFormData,
+          //     product: {
+          //       ...addFormData.product,
+          //       name: testing
+          //     }
+          //   }
+          // )
+        }
+      })
+      .catch((error) => {
+        console.log(error, 'libi')
+      })
+    }
+    console.log(productById);
+
   return (
     <>
       <div>Homepage</div>
-     
 
 
 
 
 
-     
+
+
 
       <div className='p-0'>
-        <Button onClick={() =>  togglePopUpAdd()} size="md"> Add </Button>
+        <Button onClick={() => togglePopUpAdd()} size="md"> Add </Button>
         <Table hoverable={true} className="w-[100px]">
           <Table.Head>
             <Table.HeadCell>
@@ -183,7 +220,7 @@ export default function Home() {
               </span>
             </Table.HeadCell>
           </Table.Head>
-          {product.map(each => {
+          {allProduct.map(each => {
             return (
               <Table.Body key={each.id} className="divide-y">
                 <Table.Row className="bg-white dark:border-gray-700 dark:bg-gray-800">
@@ -201,7 +238,7 @@ export default function Home() {
                     $2999
                   </Table.Cell>
                   <Table.Cell className='flex gap-4'>
-                    <Button size="md">
+                    <Button onClick={() => gottaEdit(each.id)} size="md">
                       Edit
                     </Button>
                     <Button onClick={() => { showPopUpDelete(each.id) }} size="md" className='bg-red-600'>
@@ -214,6 +251,7 @@ export default function Home() {
           })}
         </Table>
         <div>
+          {/* delete popup */}
           <Modal
             show={popUpToggle.is_delete_PopUp}
             size="md"
@@ -273,6 +311,7 @@ export default function Home() {
                   placeholder="e.g Blue Cotton"
                   required={true}
                   onChange={updateAddForm}
+                  value={addFormData.product.name}
                 />
               </div>
               <div>
@@ -288,6 +327,7 @@ export default function Home() {
                   type="text"
                   required={true}
                   onChange={updateAddForm}
+                  value={addFormData.product.description}
                 />
               </div>
               <div>
@@ -303,6 +343,7 @@ export default function Home() {
                   type="number"
                   required={true}
                   onChange={updateAddForm}
+                  value={addFormData.product.price}
                 />
               </div>
               <div>
@@ -318,14 +359,14 @@ export default function Home() {
                   required={true}
                   // value={addFormData.product.CategoryId}
                   onChange={updateAddForm}
-                  // onChange={(e) => {
-                  //   console.log(e.target.value, e.target.name,"lentyol");
-                  // }}
+                // onChange={(e) => {
+                //   console.log(e.target.value, e.target.name,"lentyol");
+                // }}
                 >
                   <option disabled selected>Select</option>
                   {category.map(each => {
                     return (
-                      <option key={each.id} value = {each.id}>
+                      <option key={each.id} value={each.id}>
                         {each.name}
                       </option>
                     )
@@ -346,6 +387,7 @@ export default function Home() {
                   placeholder="Url Format"
                   required={true}
                   onChange={updateAddForm}
+                  value={addFormData.product.mainImg}
                 />
               </div>
               <div>
@@ -360,23 +402,179 @@ export default function Home() {
                   name="imgUrl"
                   type="url"
                   accessKey="0"
-                  placeholder="Url Format" 
+                  placeholder="Url Format"
+                  onChange={updateAddForm}
+                  required={true}
+                />
+                <TextInput
+                  id="imgUrl"
+                  name="imgUrl"
+                  type="url"
+                  accessKey="1"
+                  placeholder="Url Format"
+                  onChange={updateAddForm}
+                  required={true}
+                />
+                <TextInput
+                  id="imgUrl"
+                  name="imgUrl"
+                  type="url"
+                  accessKey="2"
+                  placeholder="Url Format"
+                  onChange={updateAddForm}
+                  required={true}
+                />
+              </div>
+              <div className="w-full flex gap-4" >
+                <Button type="submit" >
+                  {/* {(isEdit) ? "Update" : "Submit"} */}
+                  Submit
+                </Button>
+                <Button onClick={togglePopUpAdd} style={{ color: "black" }} className='bg-gray-200 text-black hover:bg-slate-400' >
+                  Cancel
+                </Button>
+              </div>
+            </form>
+          </Modal.Body>
+        </Modal>
+
+        {/* edit form */}
+        <Modal
+          show={popUpToggle.is_edit_PopUp}
+          size="md"
+          popup={true}
+          onClose={onClose}
+        >
+          {/* <Modal.Header className='border border-black'/> */}
+          <Modal.Body className='pt-8  box-border'>
+            <form onSubmit={triggerAdd} className="space-y-6 px-6 pb-4 sm:pb-6 lg:px-8 xl:pb-8">
+              <h3 className="text-xl font-medium text-gray-900 dark:text-white">
+                Edit Product
+              </h3>
+              <div>
+                <div className="mb-2 block">
+                  <Label
+                    htmlFor="name"
+                    value="Name"
+                  />
+                </div>
+                <TextInput
+                  id="name"
+                  name="name"
+                  placeholder="e.g Blue Cotton"
+                  required={true}
+                  onChange={updateAddForm}
+                  value={productById.name}
+                  />
+              </div>
+              <div>
+                <div className="mb-2 block">
+                  <Label
+                    htmlFor="description"
+                    value="Description"
+                  />
+                </div>
+                <TextInput
+                  id="description"
+                  name="description"
+                  type="text"
+                  required={true}
+                  onChange={updateAddForm}
+                  value={productById.description} 
+                  />
+              </div>
+              <div>
+                <div className="mb-2 block">
+                  <Label
+                    htmlFor="price"
+                    value="Price"
+                  />
+                </div>
+                <TextInput
+                  id="price"
+                  name="price"
+                  type="number"
+                  required={true}
+                  onChange={updateAddForm}
+                  value={productById.price}  
+                  />
+              </div>
+              <div>
+                <div className="mb-2 block">
+                  <Label
+                    htmlFor="category"
+                    value="Category"
+                    />
+                </div>
+                <Select
+                  id="category"
+                  name="CategoryId"
+                  required={true}
+                  // value={addFormData.product.CategoryId}
+                  onChange={updateAddForm}
+                // onChange={(e) => {
+                //   console.log(e.target.value, e.target.name,"lentyol");
+                // }}
+                > 
+                  {category.map(each => {
+                    return (
+                      <option key={each.id} value={each.id} 
+                      selected={each.id == productById.CategoryId} > 
+                        {each.name}
+                      </option>
+                    )
+                  })}
+                </Select>
+              </div>
+              <div>
+                <div className="mb-2 block">
+                  <Label
+                    htmlFor="mainImg"
+                    value="Main Image"
+                    />
+                </div>
+                <TextInput
+                  id="mainImg"
+                  name="mainImg"
+                  type="url"
+                  placeholder="Url Format"
+                  required={true}
+                  onChange={updateAddForm}
+                  value={productById.mainImg}   
+                />
+              </div>
+              <div>
+                <div className="mb-2 block">
+                  <Label
+                    htmlFor="imgUrl"
+                    value="Related Image"
+                  />
+                </div>
+                <TextInput
+                  id="imgUrl"
+                  name="imgUrl"
+                  type="url"
+                  accessKey="0"
+                  placeholder="Url Format"
                   onChange={updateAddForm}
                 />
               </div>
               <div className="w-full flex gap-4" >
                 <Button type="submit" >
+                  {/* {(isEdit) ? "Update" : "Submit"} */}
                   Submit
                 </Button>
-                <Button onClick={togglePopUpAdd} style={{color: "black"}} className='bg-gray-200 text-black hover:bg-slate-400' >
+                <Button onClick={hidePopUpEDit} style={{ color: "black" }} className='bg-gray-200 text-black hover:bg-slate-400' >
                   Cancel
                 </Button>
-              </div>  
+              </div>
             </form>
           </Modal.Body>
         </Modal>
+
+
       </div>
-      
+
     </>
 
   );
@@ -385,7 +583,7 @@ export default function Home() {
 
 
 
- {/* 
+{/* 
       <div class="relative overflow-x-auto mt-10 ">
     <table class="w-full text-sm text-left text-black">
         <thead class="text-xs text-gray-700 uppercase bg-gray-50">

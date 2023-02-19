@@ -254,8 +254,8 @@ export default function Home() {
           popup={true}
           onClose={onClose}
         >
-          <Modal.Header />
-          <Modal.Body>
+          {/* <Modal.Header className='border border-black'/> */}
+          <Modal.Body className='pt-8  box-border'>
             <form onSubmit={triggerAdd} className="space-y-6 px-6 pb-4 sm:pb-6 lg:px-8 xl:pb-8">
               <h3 className="text-xl font-medium text-gray-900 dark:text-white">
                 Add New Product
@@ -364,11 +364,14 @@ export default function Home() {
                   onChange={updateAddForm}
                 />
               </div>
-              <div className="w-full">
+              <div className="w-full flex gap-4" >
                 <Button type="submit" >
                   Submit
                 </Button>
-              </div> 
+                <Button onClick={togglePopUpAdd} style={{color: "black"}} className='bg-gray-200 text-black hover:bg-slate-400' >
+                  Cancel
+                </Button>
+              </div>  
             </form>
           </Modal.Body>
         </Modal>

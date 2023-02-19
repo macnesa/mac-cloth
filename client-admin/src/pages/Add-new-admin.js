@@ -6,7 +6,7 @@ import {
 
 
 import { useDispatch, useSelector } from "react-redux"
-import { getCategories, act_addCategory, deleteCategory } from '../store/actions/actionCreator';
+import { act_addAdmin } from '../store/actions/actionCreator';
 
 
 export default function Home() {
@@ -14,7 +14,7 @@ export default function Home() {
   const dispatch = useDispatch()
 
   useEffect(() => {
-    dispatch(getCategories())
+    // dispatch(getCategories())
     // error handler nya
   }, []);
 
@@ -28,8 +28,12 @@ export default function Home() {
 
   const [addFormData, setAddFormData] = useState(
     {
-      name: "", 
-    }
+      username: "", 
+      email: "", 
+      password: "", 
+      phoneNumber: 0, 
+      address: ""
+    } 
   )
 
 
@@ -42,63 +46,13 @@ export default function Home() {
       }
     );
   }
-
-  // console.log(addFormData);
-
-  function onClick(event) {
-    return event.preventDefault()
-  }
-  function onClose(event) {
-    return event.preventDefault()
-
-  }
-
-
-  function showPopUpDelete(id) {
-    setPopUpToggle(
-      {
-        ...popUpToggle,
-        is_delete_PopUp: true,
-        CategoryId: id
-      }
-    )
-  }
-  function hidePopUpDelete() {
-    setPopUpToggle(
-      {
-        ...popUpToggle,
-        is_delete_PopUp: false
-      }
-    )
-  }
-
-  function togglePopUpAdd() {
-    setPopUpToggle(
-      {
-        ...popUpToggle,
-        is_add_PopUp: !popUpToggle.is_add_PopUp,
-      }
-    )
-  }
-
-
-  function triggerDelete() {
-    dispatch(deleteCategory(popUpToggle.CategoryId))
-      .then((data) => {
-        if (data == true) {
-          hidePopUpDelete()
-        }
-      })
-      .catch((error) => {
-        console.log(error, 'libi')
-      })
-  }
+     
   function triggerAdd(event) {
     event.preventDefault() 
-    dispatch(act_addCategory(addFormData))
+    dispatch(act_addAdmin(addFormData))
       .then((data) => {
         if (data == true) {
-          togglePopUpAdd()
+          // togglePopUpAdd()
         }
       })
       .catch((error) => {
@@ -108,116 +62,85 @@ export default function Home() {
 
   return (
     <>
-      <div>Homepage</div>
+      {/* <div>Add  New Admin</div>  */}
 
-
-
-
-
-
-
-
-      <div className='p-0'>
-        <Button onClick={() => togglePopUpAdd()} size="md"> Add </Button>
-        <Table hoverable={true} className="w-full">
-          <Table.Head>
-            <Table.HeadCell>
-              Name
-            </Table.HeadCell>
-            <Table.HeadCell>
-              Created At
-            </Table.HeadCell>
-            <Table.HeadCell>
-              Updated At
-            </Table.HeadCell>
-            <Table.HeadCell>
-              <span className="sr-only">
-                Edit
-              </span>
-            </Table.HeadCell>
-          </Table.Head>
-          {category.map(each => {
-            return (
-              <Table.Body key={each.id} className="divide-y">
-                <Table.Row className="bg-white dark:border-gray-700 dark:bg-gray-800">
-                  <Table.Cell className="whitespace-nowrap font-medium text-gray-900 dark:text-white">
-                    {each.name}
-                  </Table.Cell>
-                  <Table.Cell>
-                    {each.createdAt}
-                  </Table.Cell>
-                  <Table.Cell>
-                    {each.updatedAt}
-                  </Table.Cell>
-                  <Table.Cell className='flex gap-4'>
-                    <Button onClick={() => { showPopUpDelete(each.id) }} size="md" className='bg-red-600'>
-                      Delete
-                    </Button>
-                  </Table.Cell>
-                </Table.Row>
-              </Table.Body>
-            )
-          })}
-        </Table>
-        <div>
-          <Modal
-            show={popUpToggle.is_delete_PopUp}
-            size="md"
-            popup={true}
-          // onClose={onClose}
-          >
-            <Modal.Header />
-            <Modal.Body>
-              <div className="text-center">
-                {/* <HiOutlineExclamationCircle className="mx-auto mb-4 h-14 w-14 text-gray-400 dark:text-gray-200" /> */}
-                <svg aria-hidden="true" className="mx-auto mb-4 text-gray-400 w-14 h-14 dark:text-gray-200" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M12 8v4m0 4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
-                <h3 className="mb-5 text-lg font-normal text-gray-500 dark:text-gray-400">
-                  Are you sure you want to delete this product?
-                </h3>
-                <div className="flex justify-center gap-4">
-                  <Button
-                    color="failure"
-                    onClick={triggerDelete}
-                  >
-                    Yes, I'm sure
-                  </Button>
-                  <Button onClick={hidePopUpDelete}
-                    color="gray"
-                  // onClick={onClick}
-                  >
-                    No, cancel
-                  </Button>
-                </div>
-              </div>
-            </Modal.Body>
-          </Modal>
-        </div>
-
-        {/* add form */}
-        <Modal
-          show={popUpToggle.is_add_PopUp}
-          size="md"
-          popup={true}
-          onClose={onClose}
-        >
-          <Modal.Header />
-          <Modal.Body>
-            <form onSubmit={triggerAdd} className="space-y-6 px-6 pb-4 sm:pb-6 lg:px-8 xl:pb-8">
+      <form onSubmit={triggerAdd} className="space-y-6 px-6 pb-4 sm:pb-6 lg:px-8 xl:pb-8">
               <h3 className="text-xl font-medium text-gray-900 dark:text-white">
-                Add New Category
+                Add New Admin
               </h3>
               <div>
                 <div className="mb-2 block">
                   <Label
-                    htmlFor="name"
-                    value="Name"
+                    htmlFor="username"
+                    value="Username"
                   />
                 </div>
                 <TextInput
-                  id="name"
-                  name="name"
-                  placeholder="e.g Kids shirt"
+                  id="username"
+                  name="username"
+                  placeholder=""
                   required={true}
+                  onChange={updateAddForm}
+                />
+              </div>
+              <div>
+                <div className="mb-2 block">
+                  <Label
+                    htmlFor="email"
+                    value="Email"
+                  />
+                </div>
+                <TextInput
+                  id="email"
+                  name="email"
+                  type="email"
+                  required={true}
+                  onChange={updateAddForm}
+                />
+              </div>
+              <div>
+                <div className="mb-2 block">
+                  <Label
+                    htmlFor="password"
+                    value="Password"
+                  />
+                </div>
+                <TextInput
+                  id="password"
+                  name="password"
+                  type="password"
+                  required={true}
+                  onChange={updateAddForm}
+                />
+              </div> 
+              <div>
+                <div className="mb-2 block">
+                  <Label
+                    htmlFor="phoneNumber"
+                    value="Phone Number"
+                  />
+                </div>
+                <TextInput
+                  id="phoneNumber"
+                  name="phoneNumber"
+                  type="number"
+                  placeholder="Optional"
+                  required={true}
+                  onChange={updateAddForm}
+                />
+              </div>
+              <div>
+                <div className="mb-2 block">
+                  <Label
+                    htmlFor="address"
+                    value="Address"
+                  />
+                </div>
+                <TextInput
+                  id="address"
+                  name="address"
+                  type="text" 
+                  placeholder="Optional" 
                   onChange={updateAddForm}
                 />
               </div>
@@ -225,11 +148,8 @@ export default function Home() {
                 <Button type="submit" >
                   Submit
                 </Button>
-              </div>
+              </div> 
             </form>
-          </Modal.Body>
-        </Modal>
-      </div>
 
     </>
 

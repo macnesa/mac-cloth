@@ -113,9 +113,38 @@ export function act_addCategory(data) {
         )
       let respon = await request.json()
 
-      if (!request.ok) throw respon 
+      if (!request.ok) throw respon
       dispatch(getCategories())
 
+      return true
+    } catch (error) {
+      throw error
+      // console.log(error);
+    }
+  }
+}
+
+
+export function act_addAdmin(data) {
+  return async (dispatch) => {
+    try {
+      const request = await
+        fetch(baseUrl + `/admin/register`,
+          {
+            method: "POST",
+            headers: {
+              'Content-Type': 'application/json',
+              // access_token: localStorage.getItem("myToken")
+              access_token: "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwiaWF0IjoxNjc2NzAwOTY4fQ.2QIA-QzLozcnavVkPd933C1Mu1ayKtNKfMp9nGFE7ZA"
+
+            },
+            body: JSON.stringify(data)
+          }
+        )
+      let respon = await request.json()
+
+      if (!request.ok) throw respon
+      console.log(request);
       return true
     } catch (error) {
       throw error
@@ -227,7 +256,7 @@ export function deleteCategory(id) {
       let respon = await request.json()
 
       if (!request.ok) throw respon
- 
+
       dispatch(getCategories())
 
       return true

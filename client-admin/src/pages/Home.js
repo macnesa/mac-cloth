@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react';
 
 import {
-  Table, React, Button, Modal, Label, TextInput, Checkbox, Select,
+  Table, React, Button, Modal, Label, TextInput, Checkbox, Select, Carousel
 } from 'flowbite-react';
 
 
@@ -36,6 +36,7 @@ export default function Home() {
       is_delete_PopUp: false,
       is_add_PopUp: false,
       is_edit_PopUp: false,
+      is_image_PopUp: false,
       productId: 0
     }
   )
@@ -94,7 +95,7 @@ export default function Home() {
 
   function updateEditForm(event) {
     const { value, name, id } = event.target
-    if(name == "imgUrl") {
+    if (name == "imgUrl") {
       dispatch(updateProduct_imageValue(value, id))
     } else {
       dispatch(updateProductValue(value, name))
@@ -150,6 +151,15 @@ export default function Home() {
     )
   }
 
+  function togglePopUpImage() {
+    setPopUpToggle(
+      {
+        ...popUpToggle,
+        is_image_PopUp: !popUpToggle.is_image_PopUp,
+      }
+    )
+  }
+
 
   function triggerDelete() {
     dispatch(deleteProduct(popUpToggle.productId))
@@ -176,9 +186,9 @@ export default function Home() {
         console.log(error, 'libi')
       })
   }
-  
+
   function triggerEdit(event) {
-    event.preventDefault()  
+    event.preventDefault()
     dispatch(act_EditProduct(productById))
       .then((data) => {
         if (data == true) {
@@ -190,6 +200,22 @@ export default function Home() {
       })
   }
 
+  function showPopUpImage(id) {
+    dispatch(getProductById(id))
+      .then((data) => {
+        if (data == true) {
+          setPopUpToggle(
+            {
+              ...popUpToggle,
+              is_image_PopUp: true,
+            }
+          )
+        }
+      })
+      .catch((error) => {
+        console.log(error, 'libi')
+      })
+  }
 
   function gottaEdit(id) {
     dispatch(getProductById(id))
@@ -218,7 +244,24 @@ export default function Home() {
         console.log(error, 'libi')
       })
   }
-  console.log(productById);
+
+  
+  function renderImg() {
+    if (Object.keys(productById).length) {
+      if (productById.Images.length) {
+        // console.log('kokmasuk');
+        return (
+          productById.Images.map(each => {
+            return (
+              <img src={each.imgUrl} />
+            )
+          })
+        )
+      } else {
+        return <p>No Images Available</p>
+      }
+    }
+  }
 
   return (
     <>
@@ -233,6 +276,7 @@ export default function Home() {
 
       <div className='p-0'>
         <Button onClick={() => togglePopUpAdd()} size="md"> Add </Button>
+
         <Table hoverable={true} className="w-[100px]">
           <Table.Head>
             <Table.HeadCell>
@@ -271,6 +315,9 @@ export default function Home() {
                     $2999
                   </Table.Cell>
                   <Table.Cell className='flex gap-4'>
+                    <Button onClick={() => showPopUpImage(each.id)} className='whitespace-nowrap'>
+                      More Images
+                    </Button>
                     <Button onClick={() => gottaEdit(each.id)} size="md">
                       Edit
                     </Button>
@@ -283,6 +330,7 @@ export default function Home() {
             )
           })}
         </Table>
+
         <div>
           {/* delete popup */}
           <Modal
@@ -323,10 +371,10 @@ export default function Home() {
           show={popUpToggle.is_add_PopUp}
           size="md"
           popup={true}
-          onClose={onClose}
+          onClose={togglePopUpAdd}
         >
-          {/* <Modal.Header className='border border-black'/> */}
-          <Modal.Body className='pt-8  box-border'>
+          <Modal.Header className='' />
+          <Modal.Body className='box-border'>
             <form onSubmit={triggerAdd} className="space-y-6 px-6 pb-4 sm:pb-6 lg:px-8 xl:pb-8">
               <h3 className="text-xl font-medium text-gray-900 dark:text-white">
                 Add New Product
@@ -476,10 +524,10 @@ export default function Home() {
           show={popUpToggle.is_edit_PopUp}
           size="md"
           popup={true}
-          onClose={onClose}
+          onClose={hidePopUpEdit}
         >
-          {/* <Modal.Header className='border border-black'/> */}
-          <Modal.Body className='pt-8  box-border'>
+          <Modal.Header className='' />
+          <Modal.Body className='box-border'>
             <form onSubmit={triggerEdit} className="space-y-6 px-6 pb-4 sm:pb-6 lg:px-8 xl:pb-8">
               <h3 className="text-xl font-medium text-gray-900 dark:text-white">
                 Edit Product
@@ -599,12 +647,12 @@ export default function Home() {
                         value={each.imgUrl}
                       />
                     )
-                  })} 
+                  })}
               </div>
 
 
               <div className="w-full flex gap-4" >
-                <Button type="submit" > 
+                <Button type="submit" >
                   Update
                 </Button>
                 <Button onClick={hidePopUpEdit} style={{ color: "black" }} className='bg-gray-200 text-black hover:bg-slate-400' >
@@ -616,7 +664,28 @@ export default function Home() {
         </Modal>
 
 
+        <div>
+          {/* delete popup */}
+          <Modal
+            show={popUpToggle.is_image_PopUp}
+            size="lg"
+            popup={true}
+            onClose={togglePopUpImage}
+          >
+            <Modal.Header />
+            <Modal.Body>
+              <div className="h-56 sm:h-64 xl:h-80 2xl:h-96">
+                <Carousel slide={false}> 
+                  {renderImg()}
+                </Carousel>
+              </div>
+            </Modal.Body>
+          </Modal>
+        </div>
+
       </div>
+
+
 
     </>
 

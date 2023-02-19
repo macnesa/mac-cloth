@@ -13,7 +13,8 @@ import {
   act_addProduct,
   getProductById,
   updateProductValue,
-  updateProduct_imageValue
+  updateProduct_imageValue,
+  act_EditProduct
 } from '../store/actions/actionCreator';
 
 
@@ -131,7 +132,7 @@ export default function Home() {
     )
   }
 
-  function hidePopUpEDit() {
+  function hidePopUpEdit() {
     setPopUpToggle(
       {
         ...popUpToggle,
@@ -169,6 +170,19 @@ export default function Home() {
       .then((data) => {
         if (data == true) {
           togglePopUpAdd()
+        }
+      })
+      .catch((error) => {
+        console.log(error, 'libi')
+      })
+  }
+  
+  function triggerEdit(event) {
+    event.preventDefault()  
+    dispatch(act_EditProduct(productById))
+      .then((data) => {
+        if (data == true) {
+          hidePopUpEdit()
         }
       })
       .catch((error) => {
@@ -466,7 +480,7 @@ export default function Home() {
         >
           {/* <Modal.Header className='border border-black'/> */}
           <Modal.Body className='pt-8  box-border'>
-            <form onSubmit={triggerAdd} className="space-y-6 px-6 pb-4 sm:pb-6 lg:px-8 xl:pb-8">
+            <form onSubmit={triggerEdit} className="space-y-6 px-6 pb-4 sm:pb-6 lg:px-8 xl:pb-8">
               <h3 className="text-xl font-medium text-gray-900 dark:text-white">
                 Edit Product
               </h3>
@@ -590,11 +604,10 @@ export default function Home() {
 
 
               <div className="w-full flex gap-4" >
-                <Button type="submit" >
-                  {/* {(isEdit) ? "Update" : "Submit"} */}
-                  Submit
+                <Button type="submit" > 
+                  Update
                 </Button>
-                <Button onClick={hidePopUpEDit} style={{ color: "black" }} className='bg-gray-200 text-black hover:bg-slate-400' >
+                <Button onClick={hidePopUpEdit} style={{ color: "black" }} className='bg-gray-200 text-black hover:bg-slate-400' >
                   Cancel
                 </Button>
               </div>

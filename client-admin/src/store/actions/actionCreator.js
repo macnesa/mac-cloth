@@ -114,6 +114,39 @@ export function act_addProduct(data) {
   }
 }
 
+export function act_EditProduct(data) {
+  return async (dispatch) => {
+    try {
+      const request = await
+        fetch(baseUrl + `/admin/products`,
+          {
+            method: "PUT",
+            headers: {
+              'Content-Type': 'application/json',
+              // access_token: localStorage.getItem("myToken")
+              access_token: "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwiaWF0IjoxNjc2NzAwOTY4fQ.2QIA-QzLozcnavVkPd933C1Mu1ayKtNKfMp9nGFE7ZA"
+
+            },
+            body: JSON.stringify(data)
+          }
+        )
+      let respon = await request.json()
+
+      if (!request.ok) throw respon
+
+      // localStorage.setItem("myToken", respon.access_token)
+
+      // console.log(respon, "bonai");
+      dispatch(getProducts())
+
+      return true
+    } catch (error) {
+      throw error
+      // console.log(error);
+    }
+  }
+}
+
 
 export function act_addCategory(data) {
   return async (dispatch) => {

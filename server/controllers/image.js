@@ -1,14 +1,6 @@
 const { User, Image } = require('../models')
 
-class Controller {
-  // static async addHistory(name, description, userId) {
-  //   try {
-  //     let { email: updatedBy } = await User.findByPk(userId)
-  //     await History.create({ name, description, updatedBy })
-  //   } catch (error) {
-  //     throw error
-  //   }
-  // } 
+class Controller { 
 
   static async allImage(req, res, next) {
     const { productId } = req.params

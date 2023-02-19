@@ -23,15 +23,7 @@ router.post('/login', reqBodyCheck, ControllerUser.login)
 router.use(authentication)
 
 router.post('/register', ControllerUser.register)
-
-// router.use('/users',
-//   require('express').Router()
-//     .get('/', ControllerUser.allUser)
-//     .post('/', ControllerUser.addUser)
-//     .get('/token', ControllerUser.userByToken)
-//     .get('/:id', ControllerUser.userById)
-//     .delete('/:id', ControllerUser.deleteUserById)
-// )
+ 
 
 router.use('/categories',
   require('express').Router()

@@ -24,65 +24,6 @@ class Controller {
     }
   }
 
-  // static async customerMovies(req, res, next) {
-  //   const { limit, active, filterBy, byName } = req.query
-  //   try {
-  //     let params = {
-  //       where: {
-  //         status: 'Active'
-  //       }
-  //     }
-  //     if (limit) {
-  //       params.limit = limit
-  //       if (active) {
-  //         params.offset = (limit * active) - limit;
-  //       }
-  //     }
-  //     if (filterBy) {
-  //       params.where = {
-  //         GenreId: filterBy
-  //       }
-  //     }
-  //     if (byName) {
-  //       params.where = {
-  //         title: { [Op.iLike]: `%${byName}%` },
-  //       }
-  //     }
-
-  //     const movies = await Movie.findAndCountAll(params)
-  //     if (!movies.rows.length) return res.status(204).json()
-
-  //     res.status(200).json(movies)
-  //   } catch (error) {
-  //     next(error)
-  //   }
-  // }
-
-  // static async customerMovie(req, res, next) {
-  //   try {
-  //     const { id } = req.params
-  //     const movies = await Movie.findOne({
-  //       where: {
-  //         id
-  //       }, include: [
-  //         {
-  //           model: User,
-  //           attributes: { exclude: ['password'] }
-  //         },
-  //         {
-  //           model: Genre,
-  //         }
-  //       ]
-  //     })
-  //     // console.log(movies);
-  //     if (!movies) return res.status(204).json()
-  //     res.status(200).json(movies)
-  //   } catch (error) {
-  //     next(error)
-  //   }
-  // } 
-
-
 
 
   static async addProduct(req, res, next) {
@@ -116,9 +57,7 @@ class Controller {
         )
       }
 
-      // const { id } = addMovies
-      // const desc = `New entity with id ${id} has been added`
-      // await ControllerLog.addHistory(title, desc, AuthorId)
+      
       await t.commit()
       res.status(201).json(addProduct)
     } catch (error) {
@@ -189,27 +128,6 @@ class Controller {
     }
   }
 
-  // static async patchMovieStatus(req, res, next) {
-  //   const { userId } = req
-  //   const { id } = req.params
-  //   const { status } = req.body
-  //   try {
-  //     const { title, status: oldStatus } = await Movie.findByPk(id)
-  //     if (!oldStatus) throw { code: 404 }
-
-  //     await Movie.update({ status }, {
-  //       where: {
-  //         id
-  //       }
-  //     })
-  //     const desc = `Entity with id ${id} has been updated from ${oldStatus} to ${status}`
-  //     await ControllerLog.addHistory(title, desc, userId)
-  //     const updated = await Movie.findByPk(id)
-  //     res.status(200).json(updated)
-  //   } catch (error) {
-  //     next(error)
-  //   }
-  // }
 
   static async deleteProductById(req, res, next) {
     const { id } = req.params

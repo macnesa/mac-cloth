@@ -21,17 +21,7 @@ class Controller {
       next(error)
     }
   }
-
-  // static async genreById(req, res, next){
-  //   const { id } = req.params 
-  //   try{
-  //     const genre = await Genre.findByPk(id)
-  //     if (!genre) throw { code: 404 } 
-  //     res.status(200).json(genre)
-  //   } catch (error) { 
-  //     next(error)
-  //   } 
-  // }
+ 
 
   static async deleteCategoryById(req, res, next){
     const { id } = req.params 

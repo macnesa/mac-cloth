@@ -1,4 +1,11 @@
-import { COUNTER_INCREMENTER, WRITE_PRODUCTS, WRITE_GENRES, WRITE_PRODUCT } from "./actionTypes"
+import { 
+  COUNTER_INCREMENTER, 
+  WRITE_PRODUCTS, 
+  WRITE_GENRES, 
+  WRITE_PRODUCT, 
+  UPDATE_PRODUCT,
+  UPDATE_PRODUCT_IMAGEVALUE
+} from "./actionTypes"
 
 export function conterIncremented(payload) {
   return { type: COUNTER_INCREMENTER, payload }
@@ -12,7 +19,16 @@ export function writeProduct(payload) {
 export function writeProductById(payload) {
   return { type: WRITE_PRODUCT, payload }
 }
+
+export function updateProductValue(payload, name) {
+  return { type: UPDATE_PRODUCT, payload, name }
+}
+
+export function updateProduct_imageValue(payload, id) {
+  return { type: UPDATE_PRODUCT_IMAGEVALUE, payload, id }
+}
  
+
 export function writeGenres(payload) {
   return { type: WRITE_GENRES, payload }
 }
@@ -203,7 +219,7 @@ export function getProductById(id) {
 
       if (!request.ok) throw respon
 
-      // console.log(respon);
+      // console.log(respon, "yesh lach");
       dispatch(writeProductById(respon))
       return true
     } catch (error) {

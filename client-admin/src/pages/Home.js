@@ -6,7 +6,15 @@ import {
 
 
 import { useDispatch, useSelector } from "react-redux"
-import { getProducts, deleteProduct, getCategories, act_addProduct, getProductById } from '../store/actions/actionCreator';
+import {
+  getProducts,
+  deleteProduct,
+  getCategories,
+  act_addProduct,
+  getProductById,
+  updateProductValue,
+  updateProduct_imageValue
+} from '../store/actions/actionCreator';
 
 
 export default function Home() {
@@ -58,18 +66,18 @@ export default function Home() {
   function updateAddForm(event) {
     const { name, value, accessKey } = event.target;
     if (name == "imgUrl") {
-      let newarr = addFormData.images.map((each,index)=> {
-        if(index == accessKey) {
+      let newarr = addFormData.images.map((each, index) => {
+        if (index == accessKey) {
           each.imgUrl = value
-        } ; return each
-      }) 
+        }; return each
+      })
       setAddFormData(
         {
           ...addFormData,
           images: newarr
         }
-        ); 
-        // console.log(addFormData, "shomer achi"); 
+      );
+      // console.log(addFormData, "shomer achi"); 
     } else {
       setAddFormData(
         {
@@ -83,6 +91,17 @@ export default function Home() {
     }
   }
 
+  function updateEditForm(event) {
+    const { value, name, id } = event.target
+    if(name == "imgUrl") {
+      dispatch(updateProduct_imageValue(value, id))
+    } else {
+      dispatch(updateProductValue(value, name))
+    }
+    // console.log(event.target.name, "shomer");
+    // console.log(event.target.value, "shomer");
+
+  }
   // console.log(addFormData);
 
   function onClick(event) {
@@ -102,7 +121,7 @@ export default function Home() {
         productId: id
       }
     )
-  } 
+  }
   function hidePopUpDelete() {
     setPopUpToggle(
       {
@@ -111,7 +130,7 @@ export default function Home() {
       }
     )
   }
-  
+
   function hidePopUpEDit() {
     setPopUpToggle(
       {
@@ -157,7 +176,7 @@ export default function Home() {
       })
   }
 
-  
+
   function gottaEdit(id) {
     dispatch(getProductById(id))
       .then((data) => {
@@ -168,7 +187,7 @@ export default function Home() {
               is_edit_PopUp: true,
               productId: id
             }
-          ) 
+          )
           // const testing = productById.name
           // setAddFormData(
           //   {
@@ -184,8 +203,8 @@ export default function Home() {
       .catch((error) => {
         console.log(error, 'libi')
       })
-    }
-    console.log(productById);
+  }
+  console.log(productById);
 
   return (
     <>
@@ -463,9 +482,9 @@ export default function Home() {
                   name="name"
                   placeholder="e.g Blue Cotton"
                   required={true}
-                  onChange={updateAddForm}
+                  onChange={updateEditForm}
                   value={productById.name}
-                  />
+                />
               </div>
               <div>
                 <div className="mb-2 block">
@@ -479,9 +498,9 @@ export default function Home() {
                   name="description"
                   type="text"
                   required={true}
-                  onChange={updateAddForm}
-                  value={productById.description} 
-                  />
+                  onChange={updateEditForm}
+                  value={productById.description}
+                />
               </div>
               <div>
                 <div className="mb-2 block">
@@ -495,31 +514,31 @@ export default function Home() {
                   name="price"
                   type="number"
                   required={true}
-                  onChange={updateAddForm}
-                  value={productById.price}  
-                  />
+                  onChange={updateEditForm}
+                  value={productById.price}
+                />
               </div>
               <div>
                 <div className="mb-2 block">
                   <Label
                     htmlFor="category"
                     value="Category"
-                    />
+                  />
                 </div>
                 <Select
                   id="category"
                   name="CategoryId"
                   required={true}
                   // value={addFormData.product.CategoryId}
-                  onChange={updateAddForm}
+                  onChange={updateEditForm}
                 // onChange={(e) => {
                 //   console.log(e.target.value, e.target.name,"lentyol");
                 // }}
-                > 
+                >
                   {category.map(each => {
                     return (
-                      <option key={each.id} value={each.id} 
-                      selected={each.id == productById.CategoryId} > 
+                      <option key={each.id} value={each.id}
+                        selected={each.id == productById.CategoryId} >
                         {each.name}
                       </option>
                     )
@@ -531,7 +550,7 @@ export default function Home() {
                   <Label
                     htmlFor="mainImg"
                     value="Main Image"
-                    />
+                  />
                 </div>
                 <TextInput
                   id="mainImg"
@@ -539,10 +558,12 @@ export default function Home() {
                   type="url"
                   placeholder="Url Format"
                   required={true}
-                  onChange={updateAddForm}
-                  value={productById.mainImg}   
+                  onChange={updateEditForm}
+                  value={productById.mainImg}
                 />
               </div>
+
+
               <div>
                 <div className="mb-2 block">
                   <Label
@@ -550,15 +571,24 @@ export default function Home() {
                     value="Related Image"
                   />
                 </div>
-                <TextInput
-                  id="imgUrl"
-                  name="imgUrl"
-                  type="url"
-                  accessKey="0"
-                  placeholder="Url Format"
-                  onChange={updateAddForm}
-                />
+                {popUpToggle.is_edit_PopUp &&
+
+                  productById.Images.map(each => {
+                    return (
+                      <TextInput key={each.id}
+                        id={each.id}
+                        name="imgUrl"
+                        type="url"
+                        accessKey="0"
+                        placeholder="Url Format"
+                        onChange={updateEditForm}
+                        value={each.imgUrl}
+                      />
+                    )
+                  })} 
               </div>
+
+
               <div className="w-full flex gap-4" >
                 <Button type="submit" >
                   {/* {(isEdit) ? "Update" : "Submit"} */}

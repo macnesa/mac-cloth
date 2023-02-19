@@ -1,7 +1,8 @@
 const bcrypt = require('bcrypt')
 
 const jwt = require('jsonwebtoken')
-const secret = process.env.JWTSECRET
+// const secret = process.env.JWTSECRET
+const secret = "rahasia"
 
 function hashing(password) {
   return bcrypt.hashSync(password, 10);

@@ -1,10 +1,12 @@
 import { combineReducers } from "redux"
 
-import counterReducer from "./counter"
+import productReducer from "./product-reducer"
+import categoryReducer from "./category-reducer"
 
 const rootReducer = combineReducers(
   {
-    counter: counterReducer
+    product: productReducer,
+    category: categoryReducer
   }
 )
 

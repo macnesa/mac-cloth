@@ -69,7 +69,7 @@ export function act_login(data) {
 
       if (!request.ok) throw respon
 
-      // localStorage.setItem("myToken", respon.access_token)
+      localStorage.setItem("myToken", respon.access_token)
 
       // console.log(respon, "bonai");
 
@@ -90,8 +90,8 @@ export function act_addProduct(data) {
             method: "POST",
             headers: {
               'Content-Type': 'application/json',
-              // access_token: localStorage.getItem("myToken")
-              access_token: "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwiaWF0IjoxNjc2NzAwOTY4fQ.2QIA-QzLozcnavVkPd933C1Mu1ayKtNKfMp9nGFE7ZA"
+              access_token: localStorage.getItem("myToken")
+              // access_token: "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwiaWF0IjoxNjc2NzAwOTY4fQ.2QIA-QzLozcnavVkPd933C1Mu1ayKtNKfMp9nGFE7ZA"
 
             },
             body: JSON.stringify(data)
@@ -123,8 +123,8 @@ export function act_EditProduct(data) {
             method: "PUT",
             headers: {
               'Content-Type': 'application/json',
-              // access_token: localStorage.getItem("myToken")
-              access_token: "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwiaWF0IjoxNjc2NzAwOTY4fQ.2QIA-QzLozcnavVkPd933C1Mu1ayKtNKfMp9nGFE7ZA"
+              access_token: localStorage.getItem("myToken")
+              // access_token: "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwiaWF0IjoxNjc2NzAwOTY4fQ.2QIA-QzLozcnavVkPd933C1Mu1ayKtNKfMp9nGFE7ZA"
 
             },
             body: JSON.stringify(data)
@@ -157,8 +157,8 @@ export function act_addCategory(data) {
             method: "POST",
             headers: {
               'Content-Type': 'application/json',
-              // access_token: localStorage.getItem("myToken")
-              access_token: "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwiaWF0IjoxNjc2NzAwOTY4fQ.2QIA-QzLozcnavVkPd933C1Mu1ayKtNKfMp9nGFE7ZA"
+              access_token: localStorage.getItem("myToken")
+              // access_token: "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwiaWF0IjoxNjc2NzAwOTY4fQ.2QIA-QzLozcnavVkPd933C1Mu1ayKtNKfMp9nGFE7ZA"
 
             },
             body: JSON.stringify(data)
@@ -187,8 +187,8 @@ export function act_addAdmin(data) {
             method: "POST",
             headers: {
               'Content-Type': 'application/json',
-              // access_token: localStorage.getItem("myToken")
-              access_token: "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwiaWF0IjoxNjc2NzAwOTY4fQ.2QIA-QzLozcnavVkPd933C1Mu1ayKtNKfMp9nGFE7ZA"
+              access_token: localStorage.getItem("myToken")
+              // access_token: "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwiaWF0IjoxNjc2NzAwOTY4fQ.2QIA-QzLozcnavVkPd933C1Mu1ayKtNKfMp9nGFE7ZA"
 
             },
             body: JSON.stringify(data)
@@ -215,8 +215,8 @@ export function getProducts() {
           {
             method: "GET",
             headers: {
-              // access_token: localStorage.getItem("myToken")
-              access_token: "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwiaWF0IjoxNjc2NzAwOTY4fQ.2QIA-QzLozcnavVkPd933C1Mu1ayKtNKfMp9nGFE7ZA"
+              access_token: localStorage.getItem("myToken")
+              // access_token: "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwiaWF0IjoxNjc2NzAwOTY4fQ.2QIA-QzLozcnavVkPd933C1Mu1ayKtNKfMp9nGFE7ZA"
             },
           }
         )
@@ -243,8 +243,8 @@ export function getProductById(id) {
           {
             method: "GET",
             headers: {
-              // access_token: localStorage.getItem("myToken")
-              access_token: "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwiaWF0IjoxNjc2NzAwOTY4fQ.2QIA-QzLozcnavVkPd933C1Mu1ayKtNKfMp9nGFE7ZA"
+              access_token: localStorage.getItem("myToken")
+              // access_token: "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwiaWF0IjoxNjc2NzAwOTY4fQ.2QIA-QzLozcnavVkPd933C1Mu1ayKtNKfMp9nGFE7ZA"
             },
           }
         )
@@ -271,8 +271,8 @@ export function getCategories() {
           {
             method: "GET",
             headers: {
-              // access_token: localStorage.getItem("myToken")
-              access_token: "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwiaWF0IjoxNjc2NzAwOTY4fQ.2QIA-QzLozcnavVkPd933C1Mu1ayKtNKfMp9nGFE7ZA"
+              access_token: localStorage.getItem("myToken")
+              // access_token: "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwiaWF0IjoxNjc2NzAwOTY4fQ.2QIA-QzLozcnavVkPd933C1Mu1ayKtNKfMp9nGFE7ZA"
             },
           }
         )
@@ -300,8 +300,8 @@ export function deleteProduct(id) {
           {
             method: "DELETE",
             headers: {
-              // access_token: localStorage.getItem("myToken")
-              access_token: "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwiaWF0IjoxNjc2NzAwOTY4fQ.2QIA-QzLozcnavVkPd933C1Mu1ayKtNKfMp9nGFE7ZA"
+              access_token: localStorage.getItem("myToken")
+              // access_token: "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwiaWF0IjoxNjc2NzAwOTY4fQ.2QIA-QzLozcnavVkPd933C1Mu1ayKtNKfMp9nGFE7ZA"
             },
           }
         )
@@ -329,8 +329,8 @@ export function deleteCategory(id) {
           {
             method: "DELETE",
             headers: {
-              // access_token: localStorage.getItem("myToken")
-              access_token: "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwiaWF0IjoxNjc2NzAwOTY4fQ.2QIA-QzLozcnavVkPd933C1Mu1ayKtNKfMp9nGFE7ZA"
+              access_token: localStorage.getItem("myToken")
+              // access_token: "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwiaWF0IjoxNjc2NzAwOTY4fQ.2QIA-QzLozcnavVkPd933C1Mu1ayKtNKfMp9nGFE7ZA"
             },
           }
         )

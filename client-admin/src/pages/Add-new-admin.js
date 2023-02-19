@@ -8,6 +8,29 @@ import {
 import { useDispatch, useSelector } from "react-redux"
 import { act_addAdmin } from '../store/actions/actionCreator';
 
+import Toastify from 'toastify-js'
+import "toastify-js/src/toastify.css"
+
+
+function showError(msg) {
+  Toastify({
+    text: msg,
+    duration: 3000,
+    close: true,
+  }).showToast();
+}
+
+function showNotif(msg) {
+  Toastify({
+    text: msg,
+    duration: 3000,
+    close: true,
+  }).showToast();
+}
+
+
+
+
 
 export default function Home() {
   const { product, category } = useSelector((state) => state)
@@ -52,10 +75,11 @@ export default function Home() {
     dispatch(act_addAdmin(addFormData))
       .then((data) => {
         if (data == true) {
-          // togglePopUpAdd()
+          showNotif('New admin has been added')
         }
       })
       .catch((error) => {
+        showError(error.error)
         console.log(error, 'libi')
       })
   }
@@ -124,8 +148,7 @@ export default function Home() {
                   id="phoneNumber"
                   name="phoneNumber"
                   type="number"
-                  placeholder="Optional"
-                  required={true}
+                  placeholder="Optional" 
                   onChange={updateAddForm}
                 />
               </div>

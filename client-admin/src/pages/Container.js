@@ -9,7 +9,7 @@ export default function Container() {
       {/* <Header /> */}
       <Sidebar />
       <div class="p-4 sm:pl-64">
-        <div class="p-4 border-2 border-black border-dashed rounded-lg dark:border-gray-700">
+        <div class="p-4 ">
       <Outlet /> 
         </div>
       </div>

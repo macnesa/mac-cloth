@@ -1,9 +1,9 @@
 import { useEffect, useState } from 'react';
 
 import {
-  Table, React, Button, Modal, Label, TextInput, Checkbox, Select, Carousel
+  Table, React, Button, Modal, Label, TextInput, Checkbox, Select, Carousel, Alert
 } from 'flowbite-react';
-
+ 
 
 import { useDispatch, useSelector } from "react-redux"
 import {
@@ -18,11 +18,17 @@ import {
 } from '../store/actions/actionCreator';
 
 
+import Toastify from 'toastify-js'
+import "toastify-js/src/toastify.css"
+
+
+
+
+
+
 export default function Home() {
   const { product: { allProduct, productById }, category } = useSelector((state) => state)
-  const dispatch = useDispatch()
-  // dispatch(conterIncremented("payload"))
-  // console.log(product);
+  const dispatch = useDispatch() 
 
   useEffect(() => {
     dispatch(getProducts())
@@ -65,6 +71,21 @@ export default function Home() {
   )
 
 
+  function showError(msg) {
+    Toastify({
+      text: msg,
+      duration: 3000,
+      close: true,
+    }).showToast();
+  }
+  function showNotif(msg) {
+    Toastify({
+      text: msg,
+      duration: 3000,
+      close: true,
+    }).showToast();
+  }
+  
   function updateAddForm(event) {
     const { name, value, accessKey } = event.target;
     if (name == "imgUrl") {
@@ -166,9 +187,11 @@ export default function Home() {
       .then((data) => {
         if (data == true) {
           hidePopUpDelete()
+          showNotif('Product has been deleted')
         }
       })
       .catch((error) => {
+        showError(error.error)
         console.log(error, 'libi')
       })
   }
@@ -180,9 +203,11 @@ export default function Home() {
       .then((data) => {
         if (data == true) {
           togglePopUpAdd()
+          showNotif('Added new product')
         }
       })
       .catch((error) => {
+        showError(error.error)
         console.log(error, 'libi')
       })
   }
@@ -193,9 +218,11 @@ export default function Home() {
       .then((data) => {
         if (data == true) {
           hidePopUpEdit()
+          showNotif('Product has been updated')
         }
       })
       .catch((error) => {
+        showError(error.error)
         console.log(error, 'libi')
       })
   }
@@ -213,6 +240,7 @@ export default function Home() {
         }
       })
       .catch((error) => {
+        showError(error.error)
         console.log(error, 'libi')
       })
   }
@@ -227,25 +255,16 @@ export default function Home() {
               is_edit_PopUp: true,
               productId: id
             }
-          )
-          // const testing = productById.name
-          // setAddFormData(
-          //   {
-          //     ...addFormData,
-          //     product: {
-          //       ...addFormData.product,
-          //       name: testing
-          //     }
-          //   }
-          // )
+          ) 
         }
       })
       .catch((error) => {
+        showError(error.error)
         console.log(error, 'libi')
       })
   }
 
-  
+
   function renderImg() {
     if (Object.keys(productById).length) {
       if (productById.Images.length) {
@@ -264,26 +283,17 @@ export default function Home() {
   }
 
   return (
-    <>
-      <div>Homepage</div>
-
-
-
-
-
-
-
-
-      <div className='p-0'>
+    <> 
+      <div className='p-0 w-[100%]'>
         <Button onClick={() => togglePopUpAdd()} size="md"> Add </Button>
 
-        <Table hoverable={true} className="w-[100px]">
+        <Table hoverable={true} className="w-[100px] mt-10 ">
           <Table.Head>
             <Table.HeadCell>
-              Name
+              #
             </Table.HeadCell>
-            <Table.HeadCell>
-              Color
+            <Table.HeadCell  >
+              Name
             </Table.HeadCell>
             <Table.HeadCell>
               Category
@@ -292,27 +302,38 @@ export default function Home() {
               Price
             </Table.HeadCell>
             <Table.HeadCell>
+              Created By
+            </Table.HeadCell>
+            <Table.HeadCell>
+              Main Image
+            </Table.HeadCell>
+            <Table.HeadCell>
               <span className="sr-only">
                 Edit
               </span>
             </Table.HeadCell>
           </Table.Head>
-          {allProduct.map(each => {
+          {allProduct.map((each, index) => {
             return (
               <Table.Body key={each.id} className="divide-y">
                 <Table.Row className="bg-white dark:border-gray-700 dark:bg-gray-800">
+                  <Table.Cell>
+                   { index + 1 }
+                  </Table.Cell>
                   <Table.Cell className="whitespace-nowrap font-medium text-gray-900 dark:text-white">
-                    <img src={each.mainImg} className="h-10" />
                     {each.name}
+                  </Table.Cell>
+                  <Table.Cell>
+                    {each.Category.name} 
+                  </Table.Cell>
+                  <Table.Cell>
+                    {each.price.toLocaleString('id-ID', { style: 'currency', currency: 'IDR' })}
                   </Table.Cell>
                   <Table.Cell>
                     {each.User.email}
                   </Table.Cell>
                   <Table.Cell>
-                    {each.Category.name}
-                  </Table.Cell>
-                  <Table.Cell>
-                    $2999
+                    <img className='rounded-lg' src={each.mainImg}  />
                   </Table.Cell>
                   <Table.Cell className='flex gap-4'>
                     <Button onClick={() => showPopUpImage(each.id)} className='whitespace-nowrap'>
@@ -367,14 +388,14 @@ export default function Home() {
         </div>
 
         {/* add form */}
-        <Modal
+        <Modal className=''
           show={popUpToggle.is_add_PopUp}
           size="md"
           popup={true}
           onClose={togglePopUpAdd}
         >
           <Modal.Header className='' />
-          <Modal.Body className='box-border'>
+          <Modal.Body className='box-border h-[80vh] overflow-y-scroll'>
             <form onSubmit={triggerAdd} className="space-y-6 px-6 pb-4 sm:pb-6 lg:px-8 xl:pb-8">
               <h3 className="text-xl font-medium text-gray-900 dark:text-white">
                 Add New Product
@@ -527,7 +548,7 @@ export default function Home() {
           onClose={hidePopUpEdit}
         >
           <Modal.Header className='' />
-          <Modal.Body className='box-border'>
+          <Modal.Body className='box-border  h-[80vh] overflow-y-scroll'>
             <form onSubmit={triggerEdit} className="space-y-6 px-6 pb-4 sm:pb-6 lg:px-8 xl:pb-8">
               <h3 className="text-xl font-medium text-gray-900 dark:text-white">
                 Edit Product
@@ -675,7 +696,7 @@ export default function Home() {
             <Modal.Header />
             <Modal.Body>
               <div className="h-56 sm:h-64 xl:h-80 2xl:h-96">
-                <Carousel slide={false}> 
+                <Carousel slide={false}>
                   {renderImg()}
                 </Carousel>
               </div>

@@ -38,7 +38,8 @@ export function writeGenres(payload) {
 //   return { type: COUNTER_INCREMENTER, payload }
 // }
 
-const baseUrl = "http://localhost:3000"
+// const baseUrl = "http://localhost:3000"
+const baseUrl = "https://react-server.macnesa.com"
 
 export const dididam = () => {
   return (dispatch, getState) => { //atau return async (dispatch, getState) => {

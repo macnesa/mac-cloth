@@ -14,8 +14,10 @@ module.exports = {
      * }], {});
     */
 
-    const ready = data.map(each => { 
+    const ready = data.map(each => {      
+      delete each.id 
       each.createdAt = each.updatedAt = new Date();
+      each.slug = each.name.toLowerCase().replace(/\s+/g, '-')
       return each
     })
     await queryInterface.bulkInsert('Products', ready, {})

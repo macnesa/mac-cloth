@@ -1,5 +1,5 @@
 'use strict';
-const data = require('../data/categories.json');
+const data = require('../data/types.json');
 
 /** @type {import('sequelize-cli').Migration} */
 module.exports = {
@@ -19,7 +19,7 @@ module.exports = {
       each.createdAt = each.updatedAt = new Date();
       return each
     })
-    await queryInterface.bulkInsert('Categories', ready, {})
+    await queryInterface.bulkInsert('Types', ready, {})
 
   },
 
@@ -30,6 +30,6 @@ module.exports = {
      * Example:
      * await queryInterface.bulkDelete('People', null, {});
      */
-    await queryInterface.bulkDelete('Categories', null, {});
+    await queryInterface.bulkDelete('Types', null, {});
   }
 };

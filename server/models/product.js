@@ -101,7 +101,7 @@ module.exports = (sequelize, DataTypes) => {
     modelName: 'Product',
     hooks: {
       beforeCreate(Product) {
-        Product.slug = Product.name.replace(/\s+/g, '-')
+        Product.slug = Product.name.toLowerCase().replace(/\s+/g, '-')
       },
     }
   });

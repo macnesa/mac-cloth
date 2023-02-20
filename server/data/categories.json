@@ -1,14 +1,42 @@
 [
   {
-    "name": "Men's clothing"
+    "id": 1,
+    "name": "Jacket & Blazer"
   },
   {
-    "name": "Women's clothing"
+    "id": 2,
+    "name": "Blouson & Jaket Hoodie"
   },
   {
-    "name": "Jewelery"
+    "id": 3,
+    "name": "Coat"
   },
   {
-    "name": "Electronics"
+    "id": 4,
+    "name": "Sweaters & Cardigans"
+  },
+  {
+    "id": 5,
+    "name": "T-Shirt"
+  },
+  {
+    "id": 6,
+    "name": "Casual Shirt (Long Sleeves)"
+  },
+  
+  
+  
+  {
+    "id": 7,
+    "name": "Outerwear"
+  },
+  {
+    "id": 8,
+    "name": "Jeans"
+  },
+  {
+    "id": 9,
+    "name": "Shirts & Blouses"
   }
+   
 ]

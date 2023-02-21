@@ -19,6 +19,7 @@ export function writeProductById(payload) {
 
 
 const baseUrl = "http://localhost:3000"
+// const baseUrl = "https://react-server.macnesa.com"
 
 
 

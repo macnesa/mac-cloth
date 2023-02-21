@@ -56,7 +56,7 @@ export default function Home() {
         
         <div>
           <h1 className='font-bold'> {productById.name} </h1>
-          <h1 > {productById.price.toLocaleString('id-ID', { style: 'currency', currency: 'IDR' })} </h1>
+          <h1 > {productById.price} </h1>
           <h1> {productById.description} </h1>
         </div>
         

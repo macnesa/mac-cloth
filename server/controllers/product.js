@@ -1,11 +1,52 @@
-const { User, Category, Product, Image, sequelize } = require('../models')
+const { User, Category, Product, Type, Image, sequelize } = require('../models')
 // const ControllerLog = require('./log')
 const { Op } = require('sequelize')
 
+
+
+
 class Controller {
-  static async allProduct(req, res, next) {
+  
+  static async customerMovies(req, res, next) {
+    const { limit, active, filterBy, byName } = req.query
     try {
-      const movies = await Product.findAll({
+      let params = {
+        where: {
+          status: 'Active'
+        }
+      }
+      if (limit) {
+        params.limit = limit
+        if (active) {
+          params.offset = (limit * active) - limit;
+        }
+      }
+      if (filterBy) {
+        params.where = {
+          GenreId: filterBy
+        }
+      }
+      if (byName) {
+        params.where = {
+          title: { [Op.iLike]: `%${byName}%` },
+        }
+      }
+
+      const movies = await Movie.findAndCountAll(params)
+      if (!movies.rows.length) return res.status(204).json()
+
+      res.status(200).json(movies)
+    } catch (error) {
+      next(error)
+    }
+  }
+  
+  
+  static async allProduct(req, res, next) {
+    const { limit, active, filterBy, type, category, } = req.query
+    try {
+      
+      let params = {
         include: [
           {
             model: User,
@@ -13,10 +54,27 @@ class Controller {
           },
           {
             model: Category,
-            attributes: ['name'],
+            attributes: ["id", 'name'],
+          },
+          {
+            model: Type,
+            attributes: ["id", 'name'],
           }
         ]
-      })
+      }
+      
+      if (type) {
+        params.where = {
+          TypeId: type
+        }
+      }
+      if (category) {
+        params.where = {
+          CategoryId: category
+        }
+      }
+      
+      const movies = await Product.findAll(params)
       if (!movies.length) return res.status(204).json() // there is no body in 204
       res.status(200).json(movies)
     } catch (error) {
@@ -27,7 +85,7 @@ class Controller {
 
 
   static async addProduct(req, res, next) {
-    const { name, description, price, mainImg, CategoryId } = req.body.product
+    const { name, description, price, mainImg, CategoryId, TypeId } = req.body.product
 
     // const { images } = req.body
 
@@ -36,7 +94,7 @@ class Controller {
 
     try {
       const addProduct = await Product.create(
-        { name, description, price, mainImg, CategoryId, AuthorId },
+        { name, description, price, mainImg, CategoryId, TypeId, AuthorId },
         {
           transaction: t
         }
@@ -57,7 +115,7 @@ class Controller {
         )
       }
 
-      
+
       await t.commit()
       res.status(201).json(addProduct)
     } catch (error) {
@@ -76,11 +134,17 @@ class Controller {
           },
           include: [
             {
+              model: User,
+              attributes: ['email'],
+            },
+            {
               model: Category,
-              attributes: ['name'],
             },
             {
               model: Image,
+            },
+            {
+              model: Type, 
             }
           ]
         }
@@ -93,15 +157,15 @@ class Controller {
     }
   }
 
-  static async putProductById(req, res, next) { 
-    const { id, name, description, price, mainImg, CategoryId } = req.body
+  static async putProductById(req, res, next) {
+    const { id, name, description, price, mainImg, CategoryId, TypeId } = req.body
 
     const t = await sequelize.transaction()
     const AuthorId = req.userId
 
     try {
       const addProduct = await Product.update(
-        { name, description, price, mainImg, CategoryId },
+        { name, description, price, mainImg, CategoryId, TypeId },
         {
           where: {
             id
@@ -119,7 +183,7 @@ class Controller {
             transaction: t
           });
         }
-      } 
+      }
       await t.commit()
       res.status(200).json(addProduct)
     } catch (error) {

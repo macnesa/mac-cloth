@@ -1,0 +1,252 @@
+  /* skeleton 1 */
+/* .skeleton{
+  height: 75px;
+  width: 75px;
+  background: #d9d9d9; 
+  position:relative;
+  overflow: hidden;
+}   
+
+.skeleton::before {
+  position: absolute;
+  content: "";
+  height: 100%;
+  width: 100%;
+  background-image: linear-gradient(to right, #d9d9d9 0%, rgba(0,0,0,0.07) 20%, #d9d9d9 40%, #d9d9d9 100%);
+  background-repeat: no-repeat;
+  background-size: 450px 400px;
+  animation: shimmer 1s linear infinite;
+}
+ .skeleton::before{
+  background-size: 650px 600px;
+} 
+@keyframes shimmer {
+  0%{
+    background-position: -450px 0;
+  }
+  100%{
+    background-position: 450px 0;
+  }
+} */
+
+
+
+
+
+//underline animation
+
+.bottomline {
+  position: relative;
+  display: inline-block;
+}
+
+.bottomline::after {
+  content: '';
+  position: absolute;
+  left: 50%;
+  bottom: 0;
+  width: 0;
+  height: 2px;
+  background-color: white;
+  transition: all 0.4s ease-in-out;
+  transform: translateX(-50%);
+}
+
+.bottomline:hover::after {
+  width: 100%;
+  transform: translateX(-50%);
+}
+
+
+
+// bold-text animation
+.bold-animation {
+        font-weight: normal;
+        transition: all 0.5s ease-in-out;
+        animation-name: boldText;
+        animation-duration: 1s;
+        animation-delay: 0.5s;
+        animation-style: ease-in;
+        animation-fill-mode: forwards;
+      }
+      .bold-animation:hover{
+      	font-weight:bold
+      }
+
+      /* Keyframe untuk animasi */
+      @keyframes boldText {
+        0% { font-weight: normal; }
+        50% { font-weight: bold; }
+        100% { font-weight: normal; }
+      }
+
+
+
+
+
+
+
+//loading animation
+
+.square-wrap { 
+  /* position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center; 
+  margin: 0 auto */
+}
+.square {
+  position: absolute;
+  background-color: black;
+  width: 3px;
+  height: 62px;
+  margin: 0 -10%;
+  animation: sliding 3s ease infinite;
+}
+
+.square:nth-child(1n) {
+  animation-delay: 0.3s;
+}
+.square:nth-child(2n) {
+  animation-delay: 1s;
+}
+.square:nth-child(3n) {
+  animation-delay: 0.7s;
+}
+.square:nth-child(5n) {
+  animation-delay: 1.3s;
+}
+.square:nth-child(7n) {
+  animation-delay: 1.5s;
+}
+.square:nth-child(11n) {
+  animation-delay: 1.7s;
+}
+.square:nth-child(13n) {
+  animation-delay: 2s;
+}
+.square:nth-child(17n) {
+  animation-delay: 2.3s;
+}
+.square:nth-child(19n) {
+  animation-delay: 2.5s;
+}
+.square:nth-child(23n) {
+  animation-delay: 2.7s;
+}
+.square:nth-child(29n) {
+  animation-delay: 3s;
+}
+
+@keyframes sliding {
+  0%,
+  100% {
+    transform: translate(0, 0);
+  }
+  50% {
+    transform: translate(225px, 0);
+  }
+}
+
+
+
+/* cta button */
+ 
+ .wrapper {
+	 width: 100vw;
+	 height: 100vh;
+	 display: flex;
+	 flex-direction: column;
+	 align-items: center;
+	 justify-content: center;
+}
+ .button {
+	 touch-callout: none;
+	 user-select: none;
+	 display: inline-block;
+	 border: 0.2em solid;
+	 position: relative;
+	 cursor: pointer;
+	 overflow: hidden;
+	 opacity: 0.6;
+	 color: #fff;
+}
+ .button__text {
+	 display: block;
+	 padding: 1em 2em;
+	 text-transform: uppercase;
+	 font-weight: bold;
+}
+ .button__text:before {
+	 content: attr(title);
+}
+ .button__text--bis {
+	 display: block;
+	 position: absolute;
+	 top: 0;
+	 left: 0;
+	 right: 0;
+	 bottom: 0;
+	 transform: translateX(-1em);
+	 opacity: 0;
+}
+ .button__mask {
+	 display: block;
+	 position: absolute;
+	 top: 0;
+	 left: 0;
+	 right: 0;
+	 bottom: 0;
+	 background: white;
+	 transform: translateX(-100%) rotate(45deg);
+	 transition: all 0.3s;
+}
+ .button:hover {
+	 opacity: 1;
+}
+ .button:hover .button__text {
+	 animation: fx-text 0.3s ease-out;
+}
+ .button:hover .button__text--bis {
+	 animation: fx-text-bis 0.3s ease-out;
+}
+ .button:hover .button__mask {
+	 animation: fx-mask 0.3s ease-out;
+}
+ .button:active {
+	 opacity: 1;
+	 background: white;
+	 color: inherit;
+}
+ @keyframes fx-mask {
+	 0% {
+		 transform: translateX(-100%) rotate(45deg);
+	}
+	 100% {
+		 transform: translateX(100%) rotate(45deg);
+	}
+}
+ @keyframes fx-text {
+	 0% {
+		 transform: translateX(0);
+		 opacity: 1;
+	}
+	 100% {
+		 transform: translateX(1em);
+		 opacity: 0;
+	}
+}
+ @keyframes fx-text-bis {
+	 0% {
+		 transform: translateX(-1em);
+		 opacity: 0;
+	}
+	 100% {
+		 transform: translateX(0);
+		 opacity: 1;
+	}
+}

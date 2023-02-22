@@ -15,6 +15,7 @@ module.exports = {
     */
 
     const ready = data.map(each => {
+      delete each.id
       each.createdAt = each.updatedAt = new Date();
       return each
     })

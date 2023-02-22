@@ -13,6 +13,7 @@ module.exports = (sequelize, DataTypes) => {
       Product.hasMany(models.Image, { foreignKey: 'ProductId' })
       Product.belongsTo(models.User, { foreignKey: 'AuthorId' })
       Product.belongsTo(models.Category, { foreignKey: 'CategoryId' })
+      Product.belongsTo(models.Type, { foreignKey: 'TypeId' })
       // define association here
     }
   }
@@ -84,6 +85,18 @@ module.exports = (sequelize, DataTypes) => {
         }
       }
     },
+    TypeId: {
+      type: DataTypes.INTEGER,
+      allowNull: false,
+      validate: {
+        notNull: {
+          msg: 'TypeId is required'
+        },
+        notEmpty: {
+          msg: 'TypeId is required'
+        }
+      }
+    },
     AuthorId: {
       type: DataTypes.INTEGER,
       allowNull: false,
@@ -101,7 +114,7 @@ module.exports = (sequelize, DataTypes) => {
     modelName: 'Product',
     hooks: {
       beforeCreate(Product) {
-        Product.slug = Product.name.replace(/\s+/g, '-')
+        Product.slug = Product.name.toLowerCase().replace(/\s+/g, '-')
       },
     }
   });

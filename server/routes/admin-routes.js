@@ -12,7 +12,8 @@ const {
   ControllerCategories,
   ControllerImage,
   ControllerProduct,
-  ControllerUser
+  ControllerUser,
+  ControllerType
 } = require('../controllers')
 
 
@@ -31,6 +32,13 @@ router.use('/categories',
     .post('/', ControllerCategories.addCategory)
     // .get('/:id', ControllerGenre.genreById)
     .delete('/:id', ControllerCategories.deleteCategoryById)
+)
+
+router.use('/types',
+  require('express').Router()
+    .get('/', ControllerType.allType)
+    .post('/', ControllerType.addType)
+    .delete('/:id', ControllerType.deleteTypeById)
 )
  
 router.use('/products',

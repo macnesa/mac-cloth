@@ -39,6 +39,16 @@ module.exports = {
         onDelete: 'cascade',
         onUpdate: 'cascade'
       },
+      TypeId: {
+        allowNull: false,
+        type: Sequelize.INTEGER,
+        references: {
+          model: "Types",
+          key: 'id'
+        },
+        onDelete: 'cascade',
+        onUpdate: 'cascade'
+      },
       AuthorId: {
         allowNull: false,
         type: Sequelize.INTEGER,

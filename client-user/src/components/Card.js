@@ -1,6 +1,7 @@
 
 
 
+
 export default function Card(props) {
   return (
     <div className=" duration-200 delay-700 w-[150px] h-[200px] shadow-sm cursor-pointer | grid items-center ">

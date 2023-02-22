@@ -1,3 +1,6 @@
+
+export const LOADING = "LOADING"
+
 export const COUNTER_INCREMENTER = "a/b"
 
 export const READ_PRODUCTS = "READ_PRODUCTS"
@@ -5,6 +8,7 @@ export const READ_PRODUCTS = "READ_PRODUCTS"
 export const WRITE_PRODUCTS = "WRITE_PRODUCTS"
 
 export const WRITE_PRODUCT = "WRITE_PRODUCT"
+export const WRITE_PRODUCT_FAILED = "WRITE_PRODUCT_FAILED"
 
 export const UPDATE_PRODUCT = "UPDATE_PRODUCT"
 

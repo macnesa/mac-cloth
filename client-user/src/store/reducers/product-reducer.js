@@ -1,9 +1,11 @@
-import { 
-  WRITE_PRODUCTS, 
-  WRITE_PRODUCT, 
+import {
+  LOADING,
+  WRITE_PRODUCTS,
+  WRITE_PRODUCT,
   UPDATE_PRODUCT,
-  UPDATE_PRODUCT_IMAGEVALUE
- } from '../actions/actionTypes'
+  UPDATE_PRODUCT_IMAGEVALUE,
+  WRITE_PRODUCT_FAILED
+} from '../actions/actionTypes'
 
 
 
@@ -13,7 +15,9 @@ const initialState = {
   ],
   productById: {
 
-  }
+  },
+  error: null,
+  loading: false
 }
 
 function reducer(state = initialState, action) {
@@ -24,12 +28,7 @@ function reducer(state = initialState, action) {
         ...state,
         allProduct: action.payload
       }
-    case WRITE_PRODUCT:
-      return {
-        ...state,
-        productById: action.payload
-      }
-    case UPDATE_PRODUCT: 
+    case UPDATE_PRODUCT:
       return {
         ...state,
         productById: {
@@ -39,9 +38,9 @@ function reducer(state = initialState, action) {
       }
     case UPDATE_PRODUCT_IMAGEVALUE:
       const newArr = state.productById.Images.map(each => {
-        if(each.id == action.id) {
+        if (each.id == action.id) {
           each.imgUrl = action.payload
-        } ; return each
+        }; return each
       })
       return {
         ...state,
@@ -50,6 +49,25 @@ function reducer(state = initialState, action) {
           Images: newArr
         }
       }
+
+    case LOADING:
+      return { ...state, 
+        error: null,
+        loading: true
+      }
+    case WRITE_PRODUCT:
+      return { ...state,
+        productById: action.payload,
+        error: null,
+        loading: false
+      }
+    case WRITE_PRODUCT_FAILED:
+      return { ...state,
+        error: action.payload,
+        loading: false
+      }
+      
+
     default:
       return state
   }

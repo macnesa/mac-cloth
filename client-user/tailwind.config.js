@@ -6,10 +6,14 @@ module.exports = {
   ],
   theme: {
     extend: {},
+    fontFamily: {
+      'raleway': ['Raleway'],
+      'rubik': ['Rubik'],
+    }
   },
   plugins: [
     require('flowbite/plugin')
   ],
 }
-
+ 
  

@@ -7,6 +7,9 @@ import { getProducts } from '../store/actions/actionCreator';
 
 import Card from '../components/Card';
 import Kartu from '../components/Kartu';
+import Carousel from '../components/Carousel';
+
+
 
 import { Button } from "flowbite-react"
 
@@ -58,27 +61,27 @@ export default function Home() {
           name: "Men"
         }
       }, {
-      "id": 10,
-      "name": "Upright Collar Cotton Linen Shirt",
-      "slug": "upright-collar-cotton-linen-shirt",
-      "description": "Men's shirt with renewed material so that it feels soft, cool, and comfortable to wear. Koko clothes with contemporary fashionable designs",
-      "price": 499000,
-      "mainImg": "https://image.uniqlo.com/UQ/ST3/id/imagesgoods/455966/item/idgoods_56_455966.jpg?width=750",
-      "CategoryId": 6,
-      "TypeId": 1,
-      "AuthorId": 1,
-      "createdAt": "2023-02-20T23:07:21.959Z",
-      "updatedAt": "2023-02-20T23:07:21.959Z",
-      "User": {
-        "email": "macnesa@gmail.com"
+        "id": 10,
+        "name": "Upright Collar Cotton Linen Shirt",
+        "slug": "upright-collar-cotton-linen-shirt",
+        "description": "Men's shirt with renewed material so that it feels soft, cool, and comfortable to wear. Koko clothes with contemporary fashionable designs",
+        "price": 499000,
+        "mainImg": "https://image.uniqlo.com/UQ/ST3/id/imagesgoods/455966/item/idgoods_56_455966.jpg?width=750",
+        "CategoryId": 6,
+        "TypeId": 1,
+        "AuthorId": 1,
+        "createdAt": "2023-02-20T23:07:21.959Z",
+        "updatedAt": "2023-02-20T23:07:21.959Z",
+        "User": {
+          "email": "macnesa@gmail.com"
+        },
+        "Category": {
+          "name": "Casual Shirt (Long Sleeves)"
+        },
+        "Type": {
+          "name": "Men"
+        }
       },
-      "Category": {
-        "name": "Casual Shirt (Long Sleeves)"
-      },
-      "Type": {
-        "name": "Men"
-      }
-    },
       {
         "id": 7,
         "name": "Uniqlo U 3/4 Sleeve Round Collar T-Shirt",
@@ -173,6 +176,7 @@ export default function Home() {
 
 
 
+
   //   useEffect(() => {
   //     // fetch('http://localhost:3000/products?_limit=8')
   //     //   .then(response => {
@@ -237,15 +241,15 @@ export default function Home() {
               <source src="https://house-fastly-signed-eu-west-1-prod.brightcovecdn.com/media/v1/pmp4/static/clear/1268729919001/92bffd6e-10ce-462b-a2ea-b909a784267d/273beb58-f38d-4362-ad64-7e88e76c481c/main.mp4?fastly_token=NjVkNTQxMmJfZDAzZmI2YjZkM2IwNTE4YzA0ZmJlODRjYWNjMDgyMDUwNzAzMGI1ZWJkOGQwNmMyMTA2ZjgyNjAwMGMyMmRiNV8vL2hvdXNlLWZhc3RseS1zaWduZWQtZXUtd2VzdC0xLXByb2QuYnJpZ2h0Y292ZWNkbi5jb20vbWVkaWEvdjEvcG1wNC9zdGF0aWMvY2xlYXIvMTI2ODcyOTkxOTAwMS85MmJmZmQ2ZS0xMGNlLTQ2MmItYTJlYS1iOTA5YTc4NDI2N2QvMjczYmViNTgtZjM4ZC00MzYyLWFkNjQtN2U4OGU3NmM0ODFjL21haW4ubXA0" type="video/mp4" className='' />
             </video>
             <div className=" border grid justify-center items-center text-white border-white row-start-1 col-start-1">
-              <p className="font-bold"> <span className="text-6xl tracking-widest ">BE YOUR OWN </span> <br></br> <span></span></p>
+              <p className="font-bold"> <span className=" font-raleway text-6xl tracking-widest ">BE YOUR OWN </span> <br></br> <span></span></p>
             </div>
           </div>
         </div>
       </div>
 
 
-      <div className=" max-w-screen-xl mx-auto  p-[20px] box-border  grid grid-flow-col grid-cols-[1fr_2fr] ">
-        <div style={{ background: "linear-gradient(354deg, rgba(0,0,0,1) 0%, rgba(93,93,93,1) 100%)" }} className=" grid border border-white ">
+      <div onScroll={() => { alert() }} className=" max-w-screen-xl mx-auto  p-[20px] box-border  grid grid-flow-col grid-cols-[1fr_2fr] ">
+        <div style={{ background: "linear-gradient(354deg, rgba(0,0,0,1) 0%, rgba(93,93,93,1) 100%)" }} className="  h-96 grid border border-white ">
           <div className='row-start-1 text-white font-bold col-start-1 grid justify-center items-center'>
             <p className='text-[2em]'>New Arrivals</p>
           </div>
@@ -266,20 +270,19 @@ export default function Home() {
 
 
         </div>
-        
-        
-
-
-        
-        
       </div>
 
 
 
-      
+      <Carousel />
 
-      
-      
+      <div className="  max-w-screen-xl mx-auto   box-border border border-black grid ">
+        <img className='row-start-1 col-start-1' src='https://images.hugoboss.com/is/image/hugobossdm/230213_B_MW_Suit_1920x880?%24large%24&fmt=webp&align=0,-1&fit=crop,1&ts=1676394980832&qlt=80&wid=1440&hei=660 ' />
+      </div>
+
+
+
+
 
 
 

@@ -15,7 +15,7 @@ export default function Footer() {
     //   </div>
     // </div>
 
-    <footer class="  h-[70vh] mb-5 mt-4 max-w-screen-xl mx-auto  bg-white border  grid grid-rows-[1fr_3fr_0.2fr] grid-cols-[1fr]  ">
+    <footer class="  h-[70vh] mb-5 mt-[100vh] max-w-screen-xl mx-auto  bg-white border  grid grid-rows-[1fr_3fr_0.2fr] grid-cols-[1fr]  ">
 
       {/* border border-black */}
       <div className=" pl-10 grid pt-5 grid-flow-col grid-cols-[2fr_1.7fr] ">

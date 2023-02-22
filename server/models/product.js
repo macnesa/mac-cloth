@@ -13,6 +13,7 @@ module.exports = (sequelize, DataTypes) => {
       Product.hasMany(models.Image, { foreignKey: 'ProductId' })
       Product.belongsTo(models.User, { foreignKey: 'AuthorId' })
       Product.belongsTo(models.Category, { foreignKey: 'CategoryId' })
+      Product.belongsTo(models.Type, { foreignKey: 'TypeId' })
       // define association here
     }
   }
@@ -81,6 +82,18 @@ module.exports = (sequelize, DataTypes) => {
         },
         notEmpty: {
           msg: 'CategoryId is required'
+        }
+      }
+    },
+    TypeId: {
+      type: DataTypes.INTEGER,
+      allowNull: false,
+      validate: {
+        notNull: {
+          msg: 'TypeId is required'
+        },
+        notEmpty: {
+          msg: 'TypeId is required'
         }
       }
     },

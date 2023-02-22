@@ -151,7 +151,7 @@ export default function Carousel(props) {
 
 
   return (
-    <div className="  max-w-screen-xl mx-auto  p-[20px] box-border border border-black ">
+    <div className="  max-w-screen-xl mx-auto  p-[20px] box-border  border-black ">
       <Swiper
         spaceBetween={50}
         slidesPerView={4}
@@ -161,7 +161,7 @@ export default function Carousel(props) {
         {props.data.map(each => {
           return(
             <SwiperSlide>
-              <Kartu onClick={() => { navigate(`/detail/${each.id}`) }} data={each} />
+              <Kartu onClick={() => { navigate(`/detail/${each.slug}?id=${each.id}`) }} data={each} />
             </SwiperSlide>
           )
         })} 

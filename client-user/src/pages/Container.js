@@ -7,10 +7,8 @@ import Footer from "../components/Footer"
 export default function Container() {
   return (
     <>
-      <Header />
-      
-      <Outlet />
-      
+      <Header /> 
+        <Outlet />  
       <Footer />
     </>
   )

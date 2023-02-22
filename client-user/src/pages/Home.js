@@ -5,15 +5,32 @@ import { Link, useNavigate } from 'react-router-dom';
 import { useSelector, useDispatch } from "react-redux"
 import { getProducts } from '../store/actions/actionCreator';
 
+import ScrollReveal from 'scrollreveal';
+import { Button } from "flowbite-react"
+
 import Card from '../components/Card';
 import Kartu from '../components/Kartu';
 import Carousel from '../components/Carousel';
-
-import { Button } from "flowbite-react"
-
+import CtaButton from '../components/buttons/cta-button'
 import Footer from '../components/Footer';
 
 import "../style/custom.css"
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 export default function Home() {
 
@@ -27,8 +44,35 @@ export default function Home() {
   //   const [products, setProducts] = useState([]);
   //   const [categories, setCategories] = useState([]);
 
+  ScrollReveal().reveal('.reveal_top',
+    {
+      distance: '20px',
+      origin: 'top', 
+      duration: 2000
+    }
+
+  )
+  ScrollReveal().reveal('.reveal_bottom',
+    {
+      distance: '20px',
+      origin: 'bottom', 
+      duration: 2000
+    }
+
+  )
+
+
   useEffect(() => {
     dispatch(getProducts())
+    ScrollReveal().reveal('.reveal',
+      {
+        distance: '20px',
+        origin: 'bottom',
+        opacity: 0,
+        delay: 1000,
+        duration: 2000
+      }
+    );
   }, []);
 
 
@@ -192,21 +236,82 @@ export default function Home() {
             <video class="dch-video-item__player" data-video-id="6319345330112" data-small-video-id="6319346093112" data-account="1268729919001" data-policy-key="BCpkADawqM1Y866RZKo_d_lZ4BO9M5xFUuhau1_xn-o1cf_aGAKtoqQqehi8CoaMEgTW7OBrgrangdSnSau7mVrQdX377XADeXy_Rv1gTn6IVRadSBXPGBsZLLDNBJtHjELhRuV_VDmeUk7D" preload="metadata" muted autoPlay playsInline loop className="w-full row-start-1 col-start-1">
               <source src="https://house-fastly-signed-eu-west-1-prod.brightcovecdn.com/media/v1/pmp4/static/clear/1268729919001/92bffd6e-10ce-462b-a2ea-b909a784267d/273beb58-f38d-4362-ad64-7e88e76c481c/main.mp4?fastly_token=NjVkNTQxMmJfZDAzZmI2YjZkM2IwNTE4YzA0ZmJlODRjYWNjMDgyMDUwNzAzMGI1ZWJkOGQwNmMyMTA2ZjgyNjAwMGMyMmRiNV8vL2hvdXNlLWZhc3RseS1zaWduZWQtZXUtd2VzdC0xLXByb2QuYnJpZ2h0Y292ZWNkbi5jb20vbWVkaWEvdjEvcG1wNC9zdGF0aWMvY2xlYXIvMTI2ODcyOTkxOTAwMS85MmJmZmQ2ZS0xMGNlLTQ2MmItYTJlYS1iOTA5YTc4NDI2N2QvMjczYmViNTgtZjM4ZC00MzYyLWFkNjQtN2U4OGU3NmM0ODFjL21haW4ubXA0" type="video/mp4" className='' />
             </video>
-            <div className=" border grid justify-center items-center text-white border-white row-start-1 col-start-1">
-              <p className="font-bold"> <span className=" font-raleway text-6xl tracking-widest ">BE YOUR OWN </span> <br></br> <span></span></p>
+            <div className=" font-raleway  border grid justify-center  items-center text-white border-white row-start-1 col-start-1">
+              <p className=" reveal font-raleway   text-6xl tracking-widest"> <span className=" font-raleway  bold-animation font-bold ">wear</span> your confidence</p>
+
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div className=" max-w-screen-xl mx-auto   box-border border border-black grid ">
+        <img className='row-start-1 col-start-1' src='https://images.hugoboss.com/is/image/hugobossdm/230213_B_MW_Suit_1920x880?%24large%24&fmt=webp&align=0,-1&fit=crop,1&ts=1676394980832&qlt=80&wid=1440&hei=660 ' />
+
+        <div className='text-white row-start-1 border border-white col-start-1 grid items-center justify-end pr-[12%] '>
+          <div className=" reveal_top font-raleway font-bold text-right leading-[1em]  text-7xl tracking-widest">BE BOLD<br /> BE BEAUTIFUL <br /> BE MACLO <br />
+            <div className=" reveal_bottom text-sm mt-5 ">
+              <Link to="/men">
+                <CtaButton />
+              </Link>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div className="mt-20 p-10 max-w-screen-xl mx-auto   box-bordergrid grid-rows-[max-content_1fr] grid-cols-1   ">
+        <p className=' font-raleway  text-center font-bold text-xl'>man or kid</p>
+        <p className=' font-raleway  text-center font-bold tracking-widest text-3xl'>PICK YOURS</p>
+        <div className='grid   gap-5  mt-6  lg:grid-cols-[1fr_1fr] md:grid-cols-none  '>
+          <div className='shadow-2xl  grid'>
+            <img className='  row-start-1 col-start-1' src="https://image.uniqlo.com/UQ/ST3/AsianCommon/imagesgoods/456972/sub/goods_456972_sub11.jpg?width=750" />
+            <div className='row-start-1 col-start-1 grid items-end pl-10 pb-20'>
+              <div>
+                <p className='brightness-100 font-raleway font-bold  leading-[1em] text-white text-4xl tracking-widest'>TAKE THE<br /> ATTENTION</p>
+                <div className="text-sm mt-5 ">
+                  <CtaButton />
+                </div>
+              </div>
+            </div>
+          </div>
+          <div className=' grid'>
+            <img className='row-start-1 brightness-[.7] col-start-1' src="https://image.uniqlo.com/UQ/ST3/id/imagesgoods/454365/item/idgoods_44_454365.jpg?width=750" />
+            <div className='row-start-1 col-start-1 grid items-end pl-10 pb-20'>
+              <div>
+                <p className='brightness-100 font-raleway font-bold  leading-[1em]  text-white text-4xl tracking-widest'>CHASE THE <br /> DREAMS</p>
+                <div className="text-sm mt-5 ">
+                  <Link to="/kid">
+                    <CtaButton />
+                  </Link>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div className=" max-w-screen-xl mx-auto   box-border border border-black grid ">
+        <img className='row-start-1 col-start-1' src='https://im.uniqlo.com/global-cms/spa/resb4b1555f22e6f1b9116f43bdf115ba5ffr.jpg' />
+
+        <div className='text-white row-start-1 border border-white col-start-1 grid items-center pl-[12%] '>
+          <div className="">
+            <p className='reveal_bottom font-raleway font-bold  leading-[1em]  text-7xl tracking-widest'>Don't miss out on our limited flash sale</p>
+            <div className="text-sm mt-5 ">
+              <CtaButton />
             </div>
           </div>
         </div>
       </div>
 
 
-      <div onScroll={() => { alert() }} className=" max-w-screen-xl mx-auto  p-[20px] box-border  grid grid-flow-col grid-cols-[1fr_2fr] ">
+
+      {/* <div onScroll={() => { alert() }} className=" max-w-screen-xl mx-auto  p-[20px] box-border  grid grid-flow-col grid-cols-[1fr_2fr] ">
         <div style={{ background: "linear-gradient(354deg, rgba(0,0,0,1) 0%, rgba(93,93,93,1) 100%)" }} className="  h-96 grid border border-white ">
           <div className='row-start-1 text-white font-bold col-start-1 grid justify-center items-center'>
             <p className='text-[2em]'>New Arrivals</p>
           </div>
-        </div>
-        {/* ul{
+        </div> */}
+
+      {/* ul{
             width:80%;
             margin:auto;
             border:10px solid rgb(73, 55, 107);
@@ -215,22 +320,20 @@ export default function Home() {
             grid-template-columns:repeat(auto-fill,minmax(200px,1fr));
             grid-gap:3px;
         } */}
-        <div style={{ listStyle: "none", gridTemplateColumns: "repeat(3, 1fr)" }} className=" p-2  border border-white grid gap-4 box-border ">
+
+
+      {/* <div style={{ listStyle: "none", gridTemplateColumns: "repeat(3, 1fr)" }} className=" p-2  border border-white grid gap-4 box-border ">
           {allProduct.slice(0, 5).map(each => (
             <Kartu key={each.id} onClick={() => { navigate(`/detail/${each.id}`) }} data={each} />
-          ))}
-
-
+          ))} 
         </div>
-      </div>
+      </div> */}
 
 
 
-      <Carousel data={allProduct} />
+      {/* <Carousel data={allProduct} /> */}
 
-      <div className="  max-w-screen-xl mx-auto   box-border border border-black grid ">
-        <img className='row-start-1 col-start-1' src='https://images.hugoboss.com/is/image/hugobossdm/230213_B_MW_Suit_1920x880?%24large%24&fmt=webp&align=0,-1&fit=crop,1&ts=1676394980832&qlt=80&wid=1440&hei=660 ' />
-      </div>
+
 
 
 

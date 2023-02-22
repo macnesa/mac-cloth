@@ -1,28 +1,57 @@
-import { useState, Fragment } from "react"
-import { Link } from "react-router-dom"
-
+import { useState, Fragment, useEffect } from "react"
+import { Link, useLocation, useRouteMatch } from "react-router-dom"
 import A from "./typography/Anchor"
 
 export default function Header(props) {
 
+  const location = useLocation()
+
   const [headerStyle, useheaderStyle] = useState({})
-  
-  const [black, setblack] = useState({})
-  
-  
-  window.addEventListener('scroll', () => {
-    const scrollPosition = window.pageYOffset;
-    if(scrollPosition > 300) {
-      setblack({ 
-        backgroundColor: "black"
-      })
-    } else if(scrollPosition == 0) {
-      setblack({})
+
+  const [black, setblack] = useState(
+    {
+      backgroundColor: "black"
     }
-    console.log("User is scrolling", scrollPosition);
-    // Add your logic here
-  });
-  
+  )
+
+  // useEffect(() => {
+  //   if (location.pathname === "/") {
+  //     window.addEventListener('scroll', () => {
+  //       if (window.pageYOffset > 300) {
+  //         setblack({
+  //           backgroundColor: "black"
+  //         })
+  //       } else if (window.pageYOffset == 0) {
+  //         setblack({})
+  //       }
+  //     }); 
+  //     console.log("KONTOLL");
+
+  //   }
+  // }, [])
+
+
+
+  // useEffect(() => {
+  //   window.addEventListener('scroll', () => {
+  //     if (location.pathname == "/") {
+  //       console.log(location);
+  //       console.log(location.pathname === "/");
+  //       // if (window.pageYOffset > 300) {
+  //       //   setblack({
+  //       //     backgroundColor: "black"
+  //       //   })
+  //       // } else if (window.pageYOffset == 0) {
+  //       //   setblack({})
+  //       // }
+  //     }
+  //     // console.log("User is scrolling", scrollPosition); 
+  //   });
+  // }, [location.pathname])
+
+
+
+
   return (
     //  border border-black transition duration-100 ease-out
     <div style={black}
@@ -44,9 +73,9 @@ export default function Header(props) {
         </div>
 
       </div>
-      
+
       {/* border border-red-800 */}
-      <div className=" flex gap-10 justify-center "> 
+      <div className=" flex gap-10 justify-center ">
         <a>NEW IN</a>
         <a>CLOTHING</a>
         <a>SHOES</a>

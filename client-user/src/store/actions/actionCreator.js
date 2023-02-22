@@ -1,4 +1,5 @@
 import { 
+  LOADING,
   COUNTER_INCREMENTER, 
   WRITE_PRODUCTS,
   WRITE_PRODUCT,
@@ -9,6 +10,9 @@ import {
 //   return { type: COUNTER_INCREMENTER, payload }
 // }
 
+export function loading() {
+  return { type: LOADING }
+}
 
 export function writeProduct(payload) {
   return { type: WRITE_PRODUCTS, payload }
@@ -64,6 +68,7 @@ export function getProducts() {
 export function getProductById(id) {
   return async (dispatch) => {
     try {
+      dispatch(loading())
       const request = await
         fetch(baseUrl + `/customer/products/` + id,
           {

@@ -9,8 +9,6 @@ import Card from '../components/Card';
 import Kartu from '../components/Kartu';
 import Carousel from '../components/Carousel';
 
-
-
 import { Button } from "flowbite-react"
 
 import Footer from '../components/Footer';
@@ -19,9 +17,8 @@ import "../style/custom.css"
 
 export default function Home() {
 
-
-
   const { product: { allProduct, productById }, category } = useSelector((state) => state)
+
 
   const navigate = useNavigate()
   const dispatch = useDispatch()
@@ -176,51 +173,6 @@ export default function Home() {
 
 
 
-
-  //   useEffect(() => {
-  //     // fetch('http://localhost:3000/products?_limit=8')
-  //     //   .then(response => {
-  //     //     if (!response.ok) throw new Error('error request bro')
-  //     //     return response.json()
-  //     //   })
-  //     //   .then(data => {
-  //     //     console.log(data);
-  //     //     setProducts(data);
-  //     //     // setProductTitles(data.map(product => product.title));
-  //     //   })
-  //     //   .catch(error => {
-  //     //     console.log(error);
-  //     //   });
-  //     async function beforeMount() {
-  //       try {
-  //         let prod = await fetch('http://localhost:3000/products?_limit=8')
-  //         let categ = await fetch('http://localhost:3000/categories')
-  //         if (!prod.ok || !categ.ok) throw new Error('error request bro')
-  //         prod = await prod.json(); setProducts(prod);
-  //         categ = await categ.json(); setCategories(categ)
-  //         console.log(prod, categ);
-  //       } catch (error) {
-  //         console.log(error);
-  //       }
-  //     }; beforeMount()
-  //   }, []);
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
   return (
     <>
 
@@ -264,9 +216,9 @@ export default function Home() {
             grid-gap:3px;
         } */}
         <div style={{ listStyle: "none", gridTemplateColumns: "repeat(3, 1fr)" }} className=" p-2  border border-white grid gap-4 box-border ">
-          {productData.map(each => {
-            return <Kartu onClick={() => { navigate(`/detail/${each.id}`) }} data={each} />
-          })}
+          {allProduct.slice(0, 5).map(each => (
+            <Kartu key={each.id} onClick={() => { navigate(`/detail/${each.id}`) }} data={each} />
+          ))}
 
 
         </div>
@@ -274,7 +226,7 @@ export default function Home() {
 
 
 
-      <Carousel />
+      <Carousel data={allProduct} />
 
       <div className="  max-w-screen-xl mx-auto   box-border border border-black grid ">
         <img className='row-start-1 col-start-1' src='https://images.hugoboss.com/is/image/hugobossdm/230213_B_MW_Suit_1920x880?%24large%24&fmt=webp&align=0,-1&fit=crop,1&ts=1676394980832&qlt=80&wid=1440&hei=660 ' />

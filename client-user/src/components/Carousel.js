@@ -9,7 +9,7 @@ import Kartu from './Kartu';
 import 'swiper/css';
 
 
-export default function Carousel() {
+export default function Carousel(props) {
   
   const navigate = useNavigate()
 
@@ -158,7 +158,7 @@ export default function Carousel() {
         onSlideChange={() => console.log('slide change')}
         onSwiper={(swiper) => console.log(swiper)}
       >
-        {productData.map(each => {
+        {props.data.map(each => {
           return(
             <SwiperSlide>
               <Kartu onClick={() => { navigate(`/detail/${each.id}`) }} data={each} />

@@ -225,7 +225,7 @@ export default function Home() {
 
 
 
-      <div className=" w-[100%] h-[100vh] overflow-hidden box-border ">
+      <div className=" w-[100%]   overflow-hidden box-border ">
         <div className=" h-[100%] ">
           <div className=" | grid">
             {/* <img src="https://im.uniqlo.com/global-cms/spa/resfed4eb3cd117f264d596130a5bf41af5fr.jpg" */}
@@ -236,7 +236,7 @@ export default function Home() {
             <video class="dch-video-item__player" data-video-id="6319345330112" data-small-video-id="6319346093112" data-account="1268729919001" data-policy-key="BCpkADawqM1Y866RZKo_d_lZ4BO9M5xFUuhau1_xn-o1cf_aGAKtoqQqehi8CoaMEgTW7OBrgrangdSnSau7mVrQdX377XADeXy_Rv1gTn6IVRadSBXPGBsZLLDNBJtHjELhRuV_VDmeUk7D" preload="metadata" muted autoPlay playsInline loop className="w-full row-start-1 col-start-1">
               <source src="https://house-fastly-signed-eu-west-1-prod.brightcovecdn.com/media/v1/pmp4/static/clear/1268729919001/92bffd6e-10ce-462b-a2ea-b909a784267d/273beb58-f38d-4362-ad64-7e88e76c481c/main.mp4?fastly_token=NjVkNTQxMmJfZDAzZmI2YjZkM2IwNTE4YzA0ZmJlODRjYWNjMDgyMDUwNzAzMGI1ZWJkOGQwNmMyMTA2ZjgyNjAwMGMyMmRiNV8vL2hvdXNlLWZhc3RseS1zaWduZWQtZXUtd2VzdC0xLXByb2QuYnJpZ2h0Y292ZWNkbi5jb20vbWVkaWEvdjEvcG1wNC9zdGF0aWMvY2xlYXIvMTI2ODcyOTkxOTAwMS85MmJmZmQ2ZS0xMGNlLTQ2MmItYTJlYS1iOTA5YTc4NDI2N2QvMjczYmViNTgtZjM4ZC00MzYyLWFkNjQtN2U4OGU3NmM0ODFjL21haW4ubXA0" type="video/mp4" className='' />
             </video>
-            <div className=" font-raleway  border grid justify-center  items-center text-white border-white row-start-1 col-start-1">
+            <div className=" font-raleway   grid justify-center  items-center text-white border-white row-start-1 col-start-1">
               <p className=" reveal font-raleway   text-6xl tracking-widest"> <span className=" font-raleway  bold-animation font-bold ">wear</span> your confidence</p>
 
             </div>
@@ -244,10 +244,10 @@ export default function Home() {
         </div>
       </div>
 
-      <div className=" max-w-screen-xl mx-auto   box-border border border-black grid ">
+      <div className=" max-w-screen-xl mx-auto box-border  border-black grid ">
         <img className='row-start-1 col-start-1' src='https://images.hugoboss.com/is/image/hugobossdm/230213_B_MW_Suit_1920x880?%24large%24&fmt=webp&align=0,-1&fit=crop,1&ts=1676394980832&qlt=80&wid=1440&hei=660 ' />
 
-        <div className='text-white row-start-1 border border-white col-start-1 grid items-center justify-end pr-[12%] '>
+        <div className='text-white row-start-1  border-white col-start-1 grid items-center justify-end pr-[12%] '>
           <div className=" reveal_top font-raleway font-bold text-right leading-[1em]  text-7xl tracking-widest">BE BOLD<br /> BE BEAUTIFUL <br /> BE MACLO <br />
             <div className=" reveal_bottom text-sm mt-5 ">
               <Link to="/men">

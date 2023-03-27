@@ -38,8 +38,8 @@ export function writeGenres(payload) {
 //   return { type: COUNTER_INCREMENTER, payload }
 // }
 
-// const baseUrl = "http://localhost:3000"
-const baseUrl = "https://react-server.macnesa.com"
+const baseUrl = "http://localhost:3000"
+// const baseUrl = "https://react-server.macnesa.com"
 
 export const dididam = () => {
   return (dispatch, getState) => { //atau return async (dispatch, getState) => {
@@ -53,11 +53,13 @@ export const dididam = () => {
   }
 }
 
+
+
 export function act_login(data) {
   return async (dispatch) => {
     try {
       const request = await
-        fetch(baseUrl + `/admin/login`,
+        fetch(baseUrl + `/users/login`,
           {
             method: "POST",
             headers: {
@@ -70,10 +72,10 @@ export function act_login(data) {
 
       if (!request.ok) throw respon
 
-      localStorage.setItem("myToken", respon.access_token)
-
-      // console.log(respon, "bonai");
-
+      // localStorage.setItem("myToken", respon.access_token)
+          
+      console.log(respon.access_token);
+      
       return true
     } catch (error) {
       throw error
@@ -81,6 +83,9 @@ export function act_login(data) {
     }
   }
 }
+
+
+
 
 export function act_addProduct(data) {
   return async (dispatch) => {

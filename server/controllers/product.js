@@ -76,8 +76,9 @@ class Controller {
       
       const movies = await Product.findAll(params)
       if (!movies.length) return res.status(204).json() // there is no body in 204
-      res.status(200).json(movies)
+      res.status(200).json(movies) 
     } catch (error) {
+      console.log(error);
       next(error)
     }
   }

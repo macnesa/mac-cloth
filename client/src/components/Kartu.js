@@ -5,7 +5,7 @@ import { useEffect, useState } from "react"
 
 // function getPalette(url) {
 //   const colorThief = new ColorThief();
-//   const img = new Image();
+//   const img = new Image();  
 
 //   let imageURL = 'https://image.uniqlo.com/UQ/ST3/id/imagesgoods/457429/item/idgoods_66_457429.jpg?width=750';
 //   let googleProxyURL = 'https://images1-focus-opensocial.googleusercontent.com/gadgets/proxy?container=focus&refresh=2592000&url=';
@@ -51,6 +51,8 @@ export default function Kartu(props) {
       const newPalette = colorThief.getPalette(img);
       setArrOfColor(newPalette);
     });
+    
+    
   }, [])
 
   return (
